@@ -19,15 +19,6 @@ class MyInterface extends CGFinterface {
         let obj = this;
         this.model = {};
         this.initKeys();
-
-        this.gui.add(this.scene, 'displayAxis').name('Display axis');
-
-        this.gui.add(this.scene, 'selectedDayState', this.scene.dayStates).name('Selected day state').onChange(this.scene.setDayState.bind(this.scene));
-
-        this.gui
-            .add(this.scene, 'textures')
-            .name('Enable Textures');
-
         return true;
     }
     initKeys () {
