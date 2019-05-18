@@ -4,6 +4,7 @@ class MyBird extends CGFobject {
         super(scene);
         this.circle = new MySphere(scene, 2);
         this.wing = new MyBirdWing(scene);
+        this.angle = 0;
     }
 
     display () {
@@ -19,10 +20,13 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
         this.scene.pushMatrix();
         this.scene.translate(-2, 0, 0);
-        this.wing.display();
+        this.wing.display(this.angle);
         this.scene.translate(4, 0, 0);
         this.scene.scale(-1, 1, 1);
-        this.wing.display();
+        this.wing.display(this.angle);
         this.scene.popMatrix();
+    }
+    update (time) {
+        this.angle = Math.sin(time * 0.005) * 0.7 - 0.7;
     }
 }

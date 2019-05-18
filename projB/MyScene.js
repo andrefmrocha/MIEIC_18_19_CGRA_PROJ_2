@@ -14,6 +14,8 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
 
+        this.time = 0;
+
         // Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -59,6 +61,7 @@ class MyScene extends CGFscene {
         // Objects connected to MyInterface
         this.bird = new MyBird(this);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
+        this.setUpdatePeriod(1000 / 30);
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -75,8 +78,9 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    update (t) {
-
+    update (currTime) {
+        this.time = currTime;
+        this.bird.update(this.time);
     }
 
     display () {
