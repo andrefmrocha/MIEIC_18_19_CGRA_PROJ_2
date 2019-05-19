@@ -18,7 +18,6 @@ class MyInterface extends CGFinterface {
 
         var obj = this;
 
-        let obj = this;
         this.model = {};
         this.initKeys();
         return true;

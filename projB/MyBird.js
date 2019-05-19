@@ -8,11 +8,12 @@ class MyBird extends CGFobject {
         this.speed = 0.1;
         this.ori = 0;
         this.z = 0;
+        this.x = 0;
     }
 
     display () {
         this.scene.pushMatrix();
-        this.scene.translate(0, 0, this.z);
+        this.scene.translate(this.x, 0, this.z);
         this.scene.rotate(this.ori, 0, 1, 0); // TODO: How to approach it moving always to the front?
         this.scene.pushMatrix();
         this.scene.scale(1, 1, 2);
@@ -35,13 +36,17 @@ class MyBird extends CGFobject {
     }
     update (time) {
         this.angle = Math.sin(time * 0.005) * 0.7 - 0.7;
-        this.z += this.speed;
+        this.x += this.speed * Math.sin(this.ori);
+        this.z += this.speed * Math.cos(this.ori);
     }
     increaseSpeed () {
         this.speed += 0.05;
     }
     decreaseSpeed () {
+      if(this.speed - 0.05>=0)
         this.speed -= 0.05;
+      else
+        this.speed = 0;
     }
     rotateRight () {
         this.ori -= 0.1;
