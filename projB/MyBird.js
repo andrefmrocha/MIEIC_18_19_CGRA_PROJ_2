@@ -13,7 +13,7 @@ class MyBird extends CGFobject {
     display () {
         this.scene.pushMatrix();
         this.scene.translate(0, 0, this.z);
-        this.scene.rotate(this.ori, 0, 1, 0);
+        this.scene.rotate(this.ori, 0, 1, 0); // TODO: How to approach it moving always to the front?
         this.scene.pushMatrix();
         this.scene.scale(1, 1, 2);
         this.circle.display();
