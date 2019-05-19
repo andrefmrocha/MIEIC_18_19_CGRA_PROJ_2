@@ -52,25 +52,24 @@ class MyScene extends CGFscene {
         this.door.loadTexture('images/door.jpg');
 
         this.appearance = new CGFappearance(this);
-    		this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
-    		this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
-    		this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
-    		this.appearance.setShininess(120);
+        this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
+        this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
+        this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
+        this.appearance.setShininess(120);
 
-
-        this.terrainTex = new CGFtexture(this, "images/terrain.jpg");
-        this.terrainMap = new CGFtexture(this, "images/heightmap.jpg");
+        this.terrainTex = new CGFtexture(this, 'images/terrain.jpg');
+        this.terrainMap = new CGFtexture(this, 'images/heightmap.jpg');
 
         this.texture = this.terrainTex;
 
         this.appearance.setTexture(this.terrainTex);
-    		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.terrainShader = new CGFshader(this.gl, "shaders/terrain.vert", "shaders/terrain.frag");
+        this.terrainShader = new CGFshader(this.gl, 'shaders/terrain.vert', 'shaders/terrain.frag');
 
-        this.terrainShader.setUniformsValues({terrainTex : 1 , terrainMap : 2});
+        this.terrainShader.setUniformsValues({ terrainTex: 1, terrainMap: 2 });
 
-        //Objects connected to MyInterface
+        // Objects connected to MyInterface
         this.tiles = new CGFappearance(this);
         this.tiles.setAmbient(0.1, 0.1, 0.1, 1);
         this.tiles.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -126,21 +125,20 @@ class MyScene extends CGFscene {
         this.axis.display();
 
         // Update all lights used
-    		this.lights[0].update();
+        this.lights[0].update();
 
-        //Apply default appearance
-        //this.setDefaultAppearance();
+        // Apply default appearance
+        // this.setDefaultAppearance();
 
-        //this.appearance.apply();
-
+        // this.appearance.apply();
 
         this.setActiveShader(this.terrainShader);
-
-
 
         this.terrainTex.bind(1);
 
         this.terrainMap.bind(2);
+
+        this.appearance.apply();
 
         // Apply default appearance
         this.setDefaultAppearance();
@@ -149,7 +147,7 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.rotate(-0.5 * Math.PI, 1, 0, 0);
         this.scale(60, 60, 1);
-        // this.plane.display();
+        this.plane.display();
         this.popMatrix();
 
         this.bird.display();

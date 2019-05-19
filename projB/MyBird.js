@@ -43,10 +43,7 @@ class MyBird extends CGFobject {
         this.speed += 0.05;
     }
     decreaseSpeed () {
-      if(this.speed - 0.05>=0)
-        this.speed -= 0.05;
-      else
-        this.speed = 0;
+        if (this.speed - 0.05 >= 0) { this.speed -= 0.05; } else { this.speed = 0; }
     }
     rotateRight () {
         this.ori -= 0.1;
