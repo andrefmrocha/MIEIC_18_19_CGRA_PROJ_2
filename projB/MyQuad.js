@@ -18,6 +18,10 @@ class MyQuad extends CGFobject {
             -0.5, -0.5, 0, // 0
             0.5, -0.5, 0, // 1
             -0.5, 0.5, 0, // 2
+            0.5, 0.5, 0, // 3
+            -0.5, -0.5, 0, // 0
+            0.5, -0.5, 0, // 1
+            -0.5, 0.5, 0, // 2
             0.5, 0.5, 0 // 3
         ];
 
@@ -29,10 +33,14 @@ class MyQuad extends CGFobject {
 
         // Facing Z positive
         this.normals = [
+            0, 0, -1,
+            0, 0, -1,
+            0, 0, -1,
+            0, 0, -1,
             0, 0, 1,
             0, 0, 1,
             0, 0, 1,
-            0, 0, 1
+            0, 0, 1,
         ];
 
         /*
@@ -52,6 +60,9 @@ class MyQuad extends CGFobject {
             1, 0
         ];
         this.primitiveType = this.scene.gl.TRIANGLES;
+        let tmp = this.indices.slice(0);
+        tmp.reverse();
+        this.indices = this.indices.concat(tmp);
         this.initGLBuffers();
     }
 
