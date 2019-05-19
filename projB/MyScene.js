@@ -81,8 +81,16 @@ class MyScene extends CGFscene {
     update (currTime) {
         this.time = currTime;
         this.bird.update(this.time);
+        if (this.gui.isKeyPressed('KeyW')) {
+            this.bird.increaseSpeed();
+        } else if (this.gui.isKeyPressed('KeyS')) {
+            this.bird.decreaseSpeed();
+        } else if (this.gui.isKeyPressed('KeyD')) {
+            this.bird.rotateRight();
+        } else if (this.gui.isKeyPressed('KeyA')) {
+            this.bird.rotateLeft();
+        }
     }
-
     display () {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
