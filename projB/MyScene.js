@@ -24,7 +24,6 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
-        this.setUpdatePeriod(50);
 
         // Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -128,7 +127,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
 
         // Apply default appearance
-        // this.setDefaultAppearance();
+        this.setDefaultAppearance();
 
         // this.appearance.apply();
 
@@ -137,11 +136,15 @@ class MyScene extends CGFscene {
         this.terrainTex.bind(1);
 
         this.terrainMap.bind(2);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
 
-        this.appearance.apply();
+        // this.appearance.apply();
+
+        // this.terrainMap.apply();
 
         // Apply default appearance
-        this.setDefaultAppearance();
+        // this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
