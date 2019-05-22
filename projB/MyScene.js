@@ -50,6 +50,20 @@ class MyScene extends CGFscene {
         this.door.setShininess(10.0);
         this.door.loadTexture('images/door.jpg');
 
+        this.materialLeaf = new CGFappearance(this);
+        this.materialLeaf.setAmbient(0.9,0.9,0.9,1);
+        this.materialLeaf.setDiffuse(0.9,0.9,0.9,1);
+        this.materialLeaf.setSpecular(0.9,0.9,0.9,1);
+        this.materialLeaf.setShininess(10.0);
+        this.materialLeaf.loadTexture("images/treetop.jpg");
+
+        this.materialWood = new CGFappearance(this);
+        this.materialWood.setAmbient(0.1, 0.1, 0.1, 1);
+        this.materialWood.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialWood.setSpecular(0.1, 0.1, 0.1, 1);
+        this.materialWood.setShininess(10.0);
+        this.materialWood.loadTexture('images/wood.jpg');
+
         this.appearance = new CGFappearance(this);
         this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
         this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
@@ -77,8 +91,15 @@ class MyScene extends CGFscene {
         this.tiles.loadTexture('images/tiles.jpg');
 
         // Objects connected to MyInterface
+        //
+        //
         this.bird = new MyBird(this);
+        this.forest = new MyForest(this,5,3);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
+
+
+
+
         this.setUpdatePeriod(1000 / 30);
     }
     initLights () {
@@ -131,10 +152,11 @@ class MyScene extends CGFscene {
 
         // this.appearance.apply();
 
-        this.setActiveShader(this.terrainShader);
+        //this.setActiveShader(this.terrainShader);
 
         this.terrainTex.bind(1);
-
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT)
         this.terrainMap.bind(2);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
@@ -154,6 +176,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         //this.bird.display();
+        this.forest.display();
         // this.house.display();
         // ---- END Primitive drawing section
 
