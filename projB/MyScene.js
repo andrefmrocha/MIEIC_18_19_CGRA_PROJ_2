@@ -80,7 +80,7 @@ class MyScene extends CGFscene {
 
         this.terrainShader = new CGFshader(this.gl, 'shaders/terrain.vert', 'shaders/terrain.frag');
 
-        this.terrainShader.setUniformsValues({ terrainTex: 1, terrainMap: 2 });
+        this.terrainShader.setUniformsValues({ terrainTex: 0, terrainMap: 1 });
 
         // Objects connected to MyInterface
         this.tiles = new CGFappearance(this);
@@ -152,12 +152,12 @@ class MyScene extends CGFscene {
 
         // this.appearance.apply();
 
-        //this.setActiveShader(this.terrainShader);
+        this.setActiveShader(this.terrainShader);
 
-        this.terrainTex.bind(1);
+        this.terrainTex.bind(0);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT)
-        this.terrainMap.bind(2);
+        this.terrainMap.bind(1);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
 
