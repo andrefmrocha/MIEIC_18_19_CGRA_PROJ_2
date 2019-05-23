@@ -9,11 +9,13 @@ class MyBird extends CGFobject {
         this.ori = 0;
         this.z = 0;
         this.x = 0;
+        this.birdHeight = 0;
     }
 
     display () {
         this.scene.pushMatrix();
-        this.scene.translate(this.x, 0, this.z);
+        this.scene.translate(this.x, this.birdHeight + 3, this.z);
+        this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.ori, 0, 1, 0); // TODO: How to approach it moving always to the front?
         this.scene.pushMatrix();
         this.scene.scale(1, 1, 2);
@@ -35,7 +37,8 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
     }
     update (time) {
-        this.angle = Math.sin(time * 0.005) * 0.7 - 0.7;
+        this.angle = Math.sin(time * 0.005 * this.scene.speedFactor * (this.speed + 1)) * 0.7 - 0.7;
+        this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
         this.x += this.speed * Math.sin(this.ori);
         this.z += this.speed * Math.cos(this.ori);
     }

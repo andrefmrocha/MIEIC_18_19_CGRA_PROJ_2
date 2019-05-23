@@ -8,8 +8,8 @@ class MyScene extends CGFscene {
     // eslint-disable-next-line no-useless-constructor
     constructor () {
         super();
-        this.scaleFactor = 0;
-        this.speedFactor = 0;
+        this.scaleFactor = 1;
+        this.speedFactor = 1;
     }
     init (application) {
         super.init(application);
@@ -100,7 +100,7 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
 
         this.setUpdatePeriod(1000 / 30);
-        this.lightning = MyLightning(this);
+        // this.lightning = MyLightning(this);
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -127,6 +127,8 @@ class MyScene extends CGFscene {
         } else if (this.gui.isKeyPressed('KeyD')) {
             this.bird.rotateRight();
         } else if (this.gui.isKeyPressed('KeyA')) {
+            this.bird.rotateLeft();
+        } else if (this.gui.isKeyPressed('KeyR')) {
             this.bird.rotateLeft();
         }
     }
@@ -177,7 +179,7 @@ class MyScene extends CGFscene {
         this.setActiveShader(this.defaultShader);
 
         this.forest.display();
-        this.lightning.display();
+        // this.lightning.display();
         // this.house.display();
         // ---- END Primitive drawing section
 
