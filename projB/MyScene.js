@@ -100,6 +100,7 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
 
         this.setUpdatePeriod(1000 / 30);
+        this.lightning = MyLightning(this);
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -158,8 +159,7 @@ class MyScene extends CGFscene {
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
         this.terrainMap.bind(1);
-        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
-        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
+
 
         // this.appearance.apply();
 
@@ -177,6 +177,7 @@ class MyScene extends CGFscene {
         this.setActiveShader(this.defaultShader);
 
         this.forest.display();
+        this.lightning.display();
         // this.house.display();
         // ---- END Primitive drawing section
 
