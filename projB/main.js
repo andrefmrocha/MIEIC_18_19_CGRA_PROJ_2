@@ -29,6 +29,7 @@ serialInclude(['../lib/CGF.js',
                   'MyLeaf.js',
                   'MyParallelogram.js',
                   'MyForest.js',
+                  'MyLightning.js',
 
 
     main = function ()     {

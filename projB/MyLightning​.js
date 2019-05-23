@@ -1,4 +1,4 @@
-class MyLightning​ extends MyLSystem {
+class MyLightning extends MyLSystem {
 	constructor(scene) {
         super(scene);
 				this.axiom = "X";
