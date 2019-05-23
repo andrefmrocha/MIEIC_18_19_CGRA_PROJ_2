@@ -8,6 +8,8 @@ class MyScene extends CGFscene {
     // eslint-disable-next-line no-useless-constructor
     constructor () {
         super();
+        this.scaleFactor = 0;
+        this.speedFactor = 0;
     }
     init (application) {
         super.init(application);
@@ -51,11 +53,11 @@ class MyScene extends CGFscene {
         this.door.loadTexture('images/door.jpg');
 
         this.materialLeaf = new CGFappearance(this);
-        this.materialLeaf.setAmbient(0.9,0.9,0.9,1);
-        this.materialLeaf.setDiffuse(0.9,0.9,0.9,1);
-        this.materialLeaf.setSpecular(0.9,0.9,0.9,1);
+        this.materialLeaf.setAmbient(0.9, 0.9, 0.9, 1);
+        this.materialLeaf.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialLeaf.setSpecular(0.9, 0.9, 0.9, 1);
         this.materialLeaf.setShininess(10.0);
-        this.materialLeaf.loadTexture("images/treetop.jpg");
+        this.materialLeaf.loadTexture('images/treetop.jpg');
 
         this.materialWood = new CGFappearance(this);
         this.materialWood.setAmbient(0.1, 0.1, 0.1, 1);
@@ -94,15 +96,11 @@ class MyScene extends CGFscene {
         //
         //
         this.bird = new MyBird(this);
-        this.forest = new MyForest(this,5,3);
+        this.forest = new MyForest(this, 5, 3);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
 
-        this.lightning = new MyLightning(this);
-
-
-
-
         this.setUpdatePeriod(1000 / 30);
+        this.lightning = MyLightning(this);
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -154,9 +152,12 @@ class MyScene extends CGFscene {
 
         // this.appearance.apply();
 
+        this.bird.display();
         this.setActiveShader(this.terrainShader);
 
         this.terrainTex.bind(0);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
         this.terrainMap.bind(1);
 
 
@@ -165,7 +166,6 @@ class MyScene extends CGFscene {
         // this.terrainMap.apply();
 
         // Apply default appearance
-        // this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
         this.pushMatrix();
@@ -173,16 +173,13 @@ class MyScene extends CGFscene {
         this.scale(60, 60, 1);
         this.plane.display();
         this.popMatrix();
+        this.setDefaultAppearance();
         this.setActiveShader(this.defaultShader);
 
-        this.bird.display();
-
+        this.forest.display();
         this.lightning.display();
-
-        //this.forest.display();
         // this.house.display();
         // ---- END Primitive drawing section
 
-        this.setActiveShader(this.defaultShader);
     }
 }

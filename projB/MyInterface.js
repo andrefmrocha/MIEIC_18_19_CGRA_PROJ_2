@@ -15,8 +15,10 @@ class MyInterface extends CGFinterface {
         // init GUI. For more information on the methods, check:
         // http://workshop.chromeexperiments.com/examples/gui
         this.gui = new dat.GUI();
+        this.gui.add(this.scene, 'scaleFactor', -50, 50);
+        this.gui.add(this.scene, 'speedFactor', 0, 10);
 
-        var obj = this;
+        let obj = this;
 
         this.model = {};
         this.initKeys();
