@@ -5,7 +5,7 @@ class MyBird extends CGFobject {
         this.circle = new MySphere(scene, 2);
         this.wing = new MyBirdWing(scene);
         this.angle = 0;
-        this.speed = 0.1;
+        this.speed = 0;
         this.ori = 0;
         this.z = 0;
         this.x = 0;
