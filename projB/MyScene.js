@@ -174,6 +174,7 @@ class MyScene extends CGFscene {
         this.scale(60, 60, 1);
         this.plane.display();
         this.popMatrix();
+        this.setActiveShader(this.defaultShader);
 
         //this.bird.display();
         this.forest.display();
