@@ -37,21 +37,27 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
     }
     update (time) {
-        this.angle = Math.sin(time * 0.005 * this.scene.speedFactor * (this.speed + 1)) * 0.7 - 0.7;
+        this.angle = Math.sin((2 * time - time / (this.speed + 1)) * 0.005 * this.scene.speedFactor * (this.speed + 1)) * 0.7 - 0.7;
         this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
         this.x += this.speed * Math.sin(this.ori);
         this.z += this.speed * Math.cos(this.ori);
     }
     increaseSpeed () {
-        this.speed += 0.05;
+        this.speed += 0.05 * this.scene.speedFactor;
     }
     decreaseSpeed () {
-        if (this.speed - 0.05 >= 0) { this.speed -= 0.05; } else { this.speed = 0; }
+        if (this.speed - 0.05 >= 0) { this.speed -= 0.05 * this.scene.speedFactor; } else { this.speed = 0; }
     }
     rotateRight () {
-        this.ori -= 0.1;
+        this.ori -= 0.1 * this.scene.speedFactor;
     }
     rotateLeft () {
-        this.ori += 0.1;
+        this.ori += 0.1 * this.scene.speedFactor;
+    }
+    reset () {
+        this.x = 0;
+        this.z = 0;
+        this.speed = 0;
+        this.ori = 0;
     }
 }

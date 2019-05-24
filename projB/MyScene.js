@@ -89,7 +89,7 @@ class MyScene extends CGFscene {
 
         this.terrainShader = new CGFshader(this.gl, 'shaders/terrain.vert', 'shaders/terrain.frag');
 
-        this.terrainShader.setUniformsValues({ terrainTex: 0, terrainMap: 1 , terrainAlt: 2 });
+        this.terrainShader.setUniformsValues({ terrainTex: 0, terrainMap: 1, terrainAlt: 2 });
 
         // Objects connected to MyInterface
         this.tiles = new CGFappearance(this);
@@ -103,11 +103,10 @@ class MyScene extends CGFscene {
         //
         //
         this.bird = new MyBird(this);
-        //this.forest = new MyForest(this, 5, 3);
+        // this.forest = new MyForest(this, 5, 3);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
 
         this.lightnings = [];
-
 
         this.setUpdatePeriod(1000 / 30);
     }
@@ -137,31 +136,30 @@ class MyScene extends CGFscene {
             this.bird.rotateRight();
         } else if (this.gui.isKeyPressed('KeyA')) {
             this.bird.rotateLeft();
-        }else if (this.gui.isKeyPressed('KeyR')) {
-            this.bird.rotateLeft();
-        }else if (this.gui.isKeyPressed('KeyL')) {
-            if(this.lightnings.length/4.0 < 1){
-              this.lightnings.push( new MyLightning(this));
-              this.lightnings.push(Math.random() * Math.PI);
-              this.lightnings.push(Math.random()*40-20,Math.random()*40-20);
+        } else if (this.gui.isKeyPressed('KeyR')) {
+            this.bird.reset();
+        } else if (this.gui.isKeyPressed('KeyL')) {
+            if (this.lightnings.length / 4.0 < 1) {
+                this.lightnings.push(new MyLightning(this));
+                this.lightnings.push(Math.random() * Math.PI);
+                this.lightnings.push(Math.random() * 40 - 20, Math.random() * 40 - 20);
             }
         }
     }
 
-    display_lightnings (){
-
-      for(var i = 0; i < this.lightnings.length/4.0 ; i = i+4){
-        this.pushMatrix()
-        this.rotate(this.lightnings[i+1], 0,1,0);
-        this.rotate(Math.PI , 1,0,0);
-        this.translate(this.lightnings[i+2],-17,this.lightnings[i+3]);
-        this.lightnings[i].display();
-        this.popMatrix();
-        if(this.lightnings[i].f > this.lightnings[i].axiom.length + 100){
-          this.lightnings.splice(i,4);
-          i= i - 4;
+    displayLightnings () {
+        for (let i = 0; i < this.lightnings.length / 4.0; i = i + 4) {
+            this.pushMatrix();
+            this.rotate(this.lightnings[i + 1], 0, 1, 0);
+            this.rotate(Math.PI, 1, 0, 0);
+            this.translate(this.lightnings[i + 2], -17, this.lightnings[i + 3]);
+            this.lightnings[i].display();
+            this.popMatrix();
+            if (this.lightnings[i].f > this.lightnings[i].axiom.length + 100) {
+                this.lightnings.splice(i, 4);
+                i = i - 4;
+            }
         }
-      }
     }
 
     display () {
@@ -186,7 +184,7 @@ class MyScene extends CGFscene {
 
         // this.appearance.apply();
 
-        //this.bird.display();
+        this.bird.display();
         this.setActiveShader(this.terrainShader);
 
         this.terrainTex.bind(0);
@@ -194,7 +192,6 @@ class MyScene extends CGFscene {
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
         this.terrainMap.bind(1);
         this.terrainAlt.bind(2);
-
 
         // this.appearance.apply();
 
@@ -211,10 +208,9 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
         this.setActiveShader(this.defaultShader);
 
-        //this.forest.display();
-        this.display_lightnings();
+        // this.forest.display();
+        this.displayLightnings();
         // this.house.display();
         // ---- END Primitive drawing section
-
     }
 }
