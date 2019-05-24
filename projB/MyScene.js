@@ -80,6 +80,7 @@ class MyScene extends CGFscene {
 
         this.terrainTex = new CGFtexture(this, 'images/terrain.jpg');
         this.terrainMap = new CGFtexture(this, 'images/heightmap.jpg');
+        this.terrainAlt = new CGFtexture(this, 'images/altimetry.png');
 
         this.texture = this.terrainTex;
 
@@ -88,7 +89,7 @@ class MyScene extends CGFscene {
 
         this.terrainShader = new CGFshader(this.gl, 'shaders/terrain.vert', 'shaders/terrain.frag');
 
-        this.terrainShader.setUniformsValues({ terrainTex: 0, terrainMap: 1 });
+        this.terrainShader.setUniformsValues({ terrainTex: 0, terrainMap: 1 , terrainAlt: 2 });
 
         // Objects connected to MyInterface
         this.tiles = new CGFappearance(this);
@@ -192,6 +193,7 @@ class MyScene extends CGFscene {
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
         this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
         this.terrainMap.bind(1);
+        this.terrainAlt.bind(2);
 
 
         // this.appearance.apply();

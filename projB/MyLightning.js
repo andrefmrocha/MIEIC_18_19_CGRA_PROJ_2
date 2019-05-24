@@ -4,7 +4,7 @@ class MyLightning extends MyLSystem {
 				this.axiom = "X";
 				this.productions = {
 						"F" : "FFFF",
-						"X" : ["FFFF[-X]FF[+X]+FFX", "FFFF[X]FF[-X]-FFX" , "FFF[-X]F[+X]"]
+						"X" : ["FFFF[-&X]FF[+X]+FFX", "FFFF[X]FF[-^X]-FFX" , "FFF[-X]F[+X]"]
 								}
 				this.angle = 25  * Math.PI / 180.0;
         this.iterations = 4;
