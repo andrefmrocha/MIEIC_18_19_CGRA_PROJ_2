@@ -8,8 +8,8 @@ class MyScene extends CGFscene {
     // eslint-disable-next-line no-useless-constructor
     constructor () {
         super();
-        this.scaleFactor = 0;
-        this.speedFactor = 0;
+        this.scaleFactor = 1;
+        this.speedFactor = 1;
     }
     init (application) {
         super.init(application);
@@ -107,7 +107,6 @@ class MyScene extends CGFscene {
 
         this.lightnings = [];
 
-        this.lightning = new MyLightning(this);
 
         this.setUpdatePeriod(1000 / 30);
     }
@@ -137,6 +136,8 @@ class MyScene extends CGFscene {
             this.bird.rotateRight();
         } else if (this.gui.isKeyPressed('KeyA')) {
             this.bird.rotateLeft();
+        }else if (this.gui.isKeyPressed('KeyR')) {
+            this.bird.rotateLeft();
         }else if (this.gui.isKeyPressed('KeyL')) {
             if(this.lightnings.length/4.0 < 1){
               this.lightnings.push( new MyLightning(this));
@@ -160,7 +161,6 @@ class MyScene extends CGFscene {
           i= i - 4;
         }
       }
-
     }
 
     display () {
