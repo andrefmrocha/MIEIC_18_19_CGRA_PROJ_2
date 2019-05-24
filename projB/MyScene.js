@@ -72,6 +72,12 @@ class MyScene extends CGFscene {
         this.appearance.setSpecular(0.0, 0.0, 0.0, 1);
         this.appearance.setShininess(120);
 
+        this.white_lightning = new CGFappearance(this);
+        this.white_lightning.setAmbient(0.8, 0.8, 0.8, 0.8);
+        this.white_lightning.setDiffuse(1, 1, 1, 1);
+        this.white_lightning.setSpecular(1, 1, 1, 1);
+        this.white_lightning.setShininess(100.0);
+
         this.terrainTex = new CGFtexture(this, 'images/terrain.jpg');
         this.terrainMap = new CGFtexture(this, 'images/heightmap.jpg');
 
@@ -96,11 +102,14 @@ class MyScene extends CGFscene {
         //
         //
         this.bird = new MyBird(this);
-        this.forest = new MyForest(this, 5, 3);
+        //this.forest = new MyForest(this, 5, 3);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
 
+        this.lightnings = [];
+
+        this.lightning = new MyLightning(this);
+
         this.setUpdatePeriod(1000 / 30);
-        this.lightning = MyLightning(this);
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -128,8 +137,32 @@ class MyScene extends CGFscene {
             this.bird.rotateRight();
         } else if (this.gui.isKeyPressed('KeyA')) {
             this.bird.rotateLeft();
+        }else if (this.gui.isKeyPressed('KeyL')) {
+            if(this.lightnings.length/4.0 < 1){
+              this.lightnings.push( new MyLightning(this));
+              this.lightnings.push(Math.random() * Math.PI);
+              this.lightnings.push(Math.random()*40-20,Math.random()*40-20);
+            }
         }
     }
+
+    display_lightnings (){
+
+      for(var i = 0; i < this.lightnings.length/4.0 ; i = i+4){
+        this.pushMatrix()
+        this.rotate(this.lightnings[i+1], 0,1,0);
+        this.rotate(Math.PI , 1,0,0);
+        this.translate(this.lightnings[i+2],-17,this.lightnings[i+3]);
+        this.lightnings[i].display();
+        this.popMatrix();
+        if(this.lightnings[i].f > this.lightnings[i].axiom.length + 100){
+          this.lightnings.splice(i,4);
+          i= i - 4;
+        }
+      }
+
+    }
+
     display () {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -152,7 +185,7 @@ class MyScene extends CGFscene {
 
         // this.appearance.apply();
 
-        this.bird.display();
+        //this.bird.display();
         this.setActiveShader(this.terrainShader);
 
         this.terrainTex.bind(0);
@@ -176,8 +209,8 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
         this.setActiveShader(this.defaultShader);
 
-        this.forest.display();
-        this.lightning.display();
+        //this.forest.display();
+        this.display_lightnings();
         // this.house.display();
         // ---- END Primitive drawing section
 
