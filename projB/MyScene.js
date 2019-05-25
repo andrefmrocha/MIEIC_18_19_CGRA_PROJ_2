@@ -10,6 +10,7 @@ class MyScene extends CGFscene {
         super();
         this.scaleFactor = 1;
         this.speedFactor = 1;
+        this.branches = [];
     }
     init (application) {
         super.init(application);
@@ -105,10 +106,18 @@ class MyScene extends CGFscene {
         this.bird = new MyBird(this);
         // this.forest = new MyForest(this, 5, 3);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
+        this.branch = new MyTreeBranch(this);
 
         this.lightnings = [];
 
         this.setUpdatePeriod(1000 / 30);
+
+        for (let i = 0; i < 6; i++) {
+            this.branches.push({
+                x: Math.floor(Math.random() * Math.floor(60)) - 30,
+                z: Math.floor(Math.random() * Math.floor(60)) - 30
+            });
+        }
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -143,6 +152,10 @@ class MyScene extends CGFscene {
                 this.lightnings.push(new MyLightning(this));
                 this.lightnings.push(Math.random() * Math.PI);
                 this.lightnings.push(Math.random() * 40 - 20, Math.random() * 40 - 20);
+            }
+        } else if (this.gui.isKeyPressed('KeyP')) {
+            if (!this.bird.isCatching) {
+                this.bird.catch();
             }
         }
     }
@@ -185,6 +198,9 @@ class MyScene extends CGFscene {
         // this.appearance.apply();
 
         this.bird.display();
+        this.branches.forEach(value => {
+            this.branch.display(value);
+        });
         this.setActiveShader(this.terrainShader);
 
         this.terrainTex.bind(0);

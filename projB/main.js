@@ -33,6 +33,7 @@ serialInclude(['../lib/CGF.js',
     'MyRectangle.js',
     'MyBirdFeet.js',
     'MyCone.js',
+    'MyTreeBranch.js',
 
     main = function ()     {
         let app = new CGFapplication(document.body);

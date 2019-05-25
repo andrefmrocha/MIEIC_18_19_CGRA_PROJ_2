@@ -5,12 +5,15 @@ class MyBird extends CGFobject {
         this.circle = new MySphere(scene, 2);
         this.wing = new MyBirdWing(scene);
         this.feet = new MyBirdFeet(scene);
+        this.branch = new MyTreeBranch(scene);
         this.angle = 0;
         this.speed = 0;
         this.ori = 0;
         this.z = 0;
         this.x = 0;
         this.birdHeight = 0;
+        this.isCatching = false;
+        this.isCarrying = false;
     }
 
     display () {
@@ -38,13 +41,27 @@ class MyBird extends CGFobject {
         this.feet.display();
         this.scene.translate(2, 0, 0);
         this.feet.display();
+        if (this.isCarrying) {
+            this.scene.translate(-0.4, -3, 0);
+            this.branch.display({ x: 0, z: 0 });
+        }
         this.scene.popMatrix();
     }
     update (time) {
         this.angle = Math.sin((2 * time - time / (this.speed + 1)) * 0.005 * this.scene.speedFactor * (this.speed + 1)) * 0.7 - 0.7;
-        // this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
+        this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
         this.x += this.speed * Math.sin(this.ori);
         this.z += this.speed * Math.cos(this.ori);
+        if (this.isCatching) {
+            this.y -= this.speed;
+            if (this.y === 0) { // TODO: Value to change according to floor
+                this.scene.branches.forEach((element, index) => {
+                    if (Math.sqrt(Math.pow(this.x - element.x, 2) + Math.pow(this.y - element.y, 2)) < 2) {
+                        this.scene.branches.splice(index, 1);
+                    }
+                });
+            }
+        }
     }
     increaseSpeed () {
         this.speed += 0.05 * this.scene.speedFactor;
@@ -63,5 +80,8 @@ class MyBird extends CGFobject {
         this.z = 0;
         this.speed = 0;
         this.ori = 0;
+    }
+    catch () {
+        this.isCatching = true;
     }
 }
