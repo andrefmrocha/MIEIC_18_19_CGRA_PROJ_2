@@ -5,6 +5,8 @@ class MyBird extends CGFobject {
         this.circle = new MySphere(scene, 2);
         this.wing = new MyBirdWing(scene);
         this.feet = new MyBirdFeet(scene);
+        this.eye = new MyBirdEye(scene);
+        this.nose = new MyBirdNose(scene);
         this.branch = new MyTreeBranch(scene);
         this.angle = 0;
         this.speed = 0;
@@ -20,7 +22,7 @@ class MyBird extends CGFobject {
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.birdHeight + 3, this.z);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
-        this.scene.rotate(this.ori, 0, 1, 0); // TODO: How to approach it moving always to the front?
+        this.scene.rotate(this.ori, 0, 1, 0);
         this.scene.pushMatrix();
         this.scene.scale(1, 1, 2);
         this.circle.display();
@@ -45,6 +47,10 @@ class MyBird extends CGFobject {
             this.scene.translate(-0.4, -3, 0);
             this.branch.display({ x: 0, z: 0 });
         }
+        this.eye.display();
+        this.scene.translate(-1.5, 0, 0);
+        this.eye.display();
+        this.nose.display();
         this.scene.popMatrix();
     }
     update (time) {
