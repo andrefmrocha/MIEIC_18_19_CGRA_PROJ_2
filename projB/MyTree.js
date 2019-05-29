@@ -16,8 +16,8 @@ class MyTree extends MyLSystem {
 		         "​F[&X]^X"],
 				}
 				this.angle = 30.0  * Math.PI / 180.0;
-        this.iterations = 4;
-        this.scale = Math.pow(0.6, this.iterations-1)
+        this.iterations = 5;
+        this.scale = Math.pow(0.8, this.iterations-1)
 				this.grammar = {
 					F : new MyBranch(this.scene),
 					X : new MyLeaf(this.scene)

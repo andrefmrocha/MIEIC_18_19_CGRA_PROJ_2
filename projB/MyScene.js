@@ -104,7 +104,8 @@ class MyScene extends CGFscene {
         //
         //
         this.bird = new MyBird(this);
-        // this.forest = new MyForest(this, 5, 3);
+        this.forest = new MyForest(this, 2, 2);
+        this.nest = new MyNest(this);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
         this.branch = new MyTreeBranch(this);
 
@@ -197,9 +198,9 @@ class MyScene extends CGFscene {
 
         // this.appearance.apply();
 
-        this.bird.display();
+        //this.bird.display();
         this.branches.forEach(value => {
-            this.branch.display(value);
+            //this.branch.display(value);
         });
         this.setActiveShader(this.terrainShader);
 
@@ -219,12 +220,13 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.rotate(-0.5 * Math.PI, 1, 0, 0);
         this.scale(60, 60, 1);
-        this.plane.display();
+        //this.plane.display();
         this.popMatrix();
         this.setDefaultAppearance();
         this.setActiveShader(this.defaultShader);
 
-        // this.forest.display();
+        //this.forest.display();
+        this.nest.display();
         this.displayLightnings();
         // this.house.display();
         // ---- END Primitive drawing section
