@@ -46,8 +46,10 @@ class MyBird extends CGFobject {
         this.scene.translate(2, 0, 0);
         this.feet.display();
         if (this.isCarrying) {
+            this.scene.pushMatrix();
             this.scene.translate(-0.4, -3, 0);
             this.branch.display({ x: 0, z: 0 });
+            this.scene.popMatrix();
         }
         this.eye.display();
         this.scene.translate(-1.5, 0, 0);
@@ -63,9 +65,12 @@ class MyBird extends CGFobject {
             console.log('Going down', this.speed);
             if (this.y <= 0) { // TODO: Value to change according to floor
                 this.y = 0;
+                console.log(`Birdx: ${ this.x }, BirdY: ${ this.z }`);
                 this.scene.branches.forEach((element, index) => {
-                    if (Math.sqrt(Math.pow(this.x - element.x, 2) + Math.pow(this.y - element.y, 2)) < 2) {
+                    console.log('Searching at element', element.x, '  ', element.z);
+                    if (Math.sqrt(Math.pow(this.x - element.x, 2) + Math.pow(this.z - element.z, 2)) < 5) {
                         this.scene.branches.splice(index, 1);
+                        this.isCarrying = true;
                     }
                 });
                 this.isCatching = false;

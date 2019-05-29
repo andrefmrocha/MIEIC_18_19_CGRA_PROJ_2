@@ -58,9 +58,9 @@ class MyLightning extends MyLSystem {
                 this.scene.rotate(this.angle, 0, 1, 0);
                 break;
             case '&':
-			             // roda a direita
-			             this.scene.rotate(-this.angle, 0, 1, 0);
-			             break;
+                // roda a direita
+                this.scene.rotate(-this.angle, 0, 1, 0);
+                break;
             case '\\':
                 this.scene.rotate(this.angle, 1, 0, 0);
                 break;
