@@ -248,11 +248,6 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // this.appearance.apply();
-
-        this.branches.forEach(value => {
-            this.branch.display(value);
-        });
-        this.bird.display();
         this.setActiveShader(this.terrainShader);
 
         this.terrainTex.bind(0);
