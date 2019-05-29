@@ -79,8 +79,8 @@ class MyScene extends CGFscene {
         this.white_lightning.setSpecular(1, 1, 1, 1);
         this.white_lightning.setShininess(100.0);
 
-        this.terrainTex = new CGFtexture(this, 'images/terrain.jpg');
-        this.terrainMap = new CGFtexture(this, 'images/heightmap.jpg');
+        this.terrainTex = new CGFtexture(this, 'images/terrain2.jpg');
+        this.terrainMap = new CGFtexture(this, 'images/heightmap2.jpg');
         this.terrainAlt = new CGFtexture(this, 'images/altimetry.png');
 
         this.texture = this.terrainTex;
@@ -198,7 +198,7 @@ class MyScene extends CGFscene {
 
         // this.appearance.apply();
 
-        //this.bird.display();
+        this.bird.display();
         this.branches.forEach(value => {
             //this.branch.display(value);
         });
@@ -220,13 +220,13 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.rotate(-0.5 * Math.PI, 1, 0, 0);
         this.scale(60, 60, 1);
-        //this.plane.display();
+        this.plane.display();
         this.popMatrix();
         this.setDefaultAppearance();
         this.setActiveShader(this.defaultShader);
 
         //this.forest.display();
-        this.nest.display();
+        //this.nest.display();
         this.displayLightnings();
         // this.house.display();
         // ---- END Primitive drawing section
