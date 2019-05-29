@@ -8,8 +8,14 @@ class MyBird extends CGFobject {
         this.eye = new MyBirdEye(scene);
         this.nose = new MyBirdNose(scene);
         this.branch = new MyTreeBranch(scene);
+
         this.angle = 0;
+
         this.speed = 0;
+        this.alpha = 0;
+
+        this.time = 0;
+
         this.ori = 0;
         this.z = 0;
         this.x = 0;
@@ -58,7 +64,8 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
     }
     update (time) {
-        this.angle = Math.sin((2 * time - time / (this.speed + 1)) * 0.005 * this.scene.speedFactor * (this.speed + 1)) * 0.7 - 0.7;
+        this.time = 0;
+        this.angle = Math.sin(2 * time * 0.005 * this.scene.speedFactor * (this.speed + 1) + this.alpha) * 0.7 - 0.7;
         this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
         if (this.isCatching) {
             this.y -= this.speed + 0.1;
@@ -89,7 +96,10 @@ class MyBird extends CGFobject {
         }
     }
     increaseSpeed () {
+        let curr = (this.time * 0.005 * this.scene.speedFactor * (this.speed + 1) + this.alpha) % (2.0 * Math.PI);
         this.speed += 0.05 * this.scene.speedFactor;
+        let next = (this.time * 0.005 * this.scene.speedFactor * (this.speed + 1)) % (2.0 * Math.PI);
+        this.alpha = curr - next;
     }
     decreaseSpeed () {
         if (this.speed - 0.05 >= 0) { this.speed -= 0.05 * this.scene.speedFactor; } else { this.speed = 0; }

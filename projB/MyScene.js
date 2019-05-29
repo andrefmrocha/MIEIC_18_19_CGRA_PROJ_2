@@ -31,23 +31,24 @@ class MyScene extends CGFscene {
         // Initialize scene objects
         this.axis = new CGFaxis(this);
         this.plane = new Plane(this, 32);
+
         this.brick = new CGFappearance(this);
-        this.brick.setAmbient(0.1, 0.1, 0.1, 1);
+        this.brick.setAmbient(0.9, 0.9, 0.9, 1);
         this.brick.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.brick.setSpecular(0.1, 0.1, 0.1, 1);
-        this.brick.setShininess(10.0);
+        this.brick.setSpecular(0.4, 0.4, 0.4, 1);
+        this.brick.setShininess(120.0);
         this.brick.loadTexture('images/brick.jpg');
         this.brick.setTextureWrap('REPEAT', 'REPEAT');
 
         this.garage = new CGFappearance(this);
-        this.garage.setAmbient(0.1, 0.1, 0.1, 1);
+        this.garage.setAmbient(0.9, 0.9, 0.9, 1);
         this.garage.setDiffuse(0.3, 0.3, 0.3, 1);
         this.garage.setSpecular(0.9, 0.9, 0.9, 1);
         this.garage.setShininess(10.0);
         this.garage.loadTexture('images/garage.jpg');
 
         this.door = new CGFappearance(this);
-        this.door.setAmbient(0.1, 0.1, 0.1, 1);
+        this.door.setAmbient(0.9, 0.9, 0.9, 1);
         this.door.setDiffuse(0.9, 0.9, 0.9, 1);
         this.door.setSpecular(0.1, 0.1, 0.1, 1);
         this.door.setShininess(10.0);
@@ -94,17 +95,17 @@ class MyScene extends CGFscene {
 
         // Objects connected to MyInterface
         this.tiles = new CGFappearance(this);
-        this.tiles.setAmbient(0.1, 0.1, 0.1, 1);
+        this.tiles.setAmbient(0.9, 0.9, 0.9, 1);
         this.tiles.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.tiles.setSpecular(0.1, 0.1, 0.1, 1);
-        this.tiles.setShininess(10.0);
+        this.tiles.setSpecular(0.9, 0.9, 0.9, 1);
+        this.tiles.setShininess(120.0);
         this.tiles.loadTexture('images/tiles.jpg');
 
         // Objects connected to MyInterface
         //
         //
         this.bird = new MyBird(this);
-        this.forest = new MyForest(this, 2, 2);
+        this.forest = new MyForest(this, 5, 3);
         this.nest = new MyNest(this);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
         this.branch = new MyTreeBranch(this);
@@ -120,7 +121,6 @@ class MyScene extends CGFscene {
             });
         }
         console.log(this.bird);
-
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -178,6 +178,55 @@ class MyScene extends CGFscene {
         }
     }
 
+    cenario () {
+        this.pushMatrix();
+        this.scale(0.2, 0.2, 0.2);
+        this.bird.display();
+        this.popMatrix();
+
+        this.branches.forEach(value => {
+            this.branch.display(value);
+        });
+        this.setActiveShader(this.terrainShader);
+
+        this.terrainTex.bind(0);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
+        this.terrainMap.bind(1);
+        this.terrainAlt.bind(2);
+
+        // ---- BEGIN Primitive drawing section
+        this.pushMatrix();
+        this.rotate(-0.5 * Math.PI, 1, 0, 0);
+        this.scale(60, 60, 1);
+        this.plane.display();
+        this.popMatrix();
+        this.setDefaultAppearance();
+
+        this.setActiveShader(this.defaultShader);
+
+        this.pushMatrix();
+        this.scale(0.8, 0.8, 0.8);
+        this.translate(18, 0, -4);
+        this.rotate(Math.PI / 2 + 0.3, 0, 1, 0);
+        this.forest.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.scale(0.7, 0.7, 0.7);
+        this.translate(25, 0, 0);
+        this.rotate(-Math.PI / 2, 0, 1, 0);
+        this.house.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-9, -3, 11);
+        this.scale(1.2, 1.2, 1.2);
+        this.rotate(-Math.PI / 2, 1, 0, 0);
+        this.nest.display();
+        this.popMatrix();
+    }
+
     display () {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -226,9 +275,8 @@ class MyScene extends CGFscene {
         this.popMatrix();
         this.setDefaultAppearance();
         this.setActiveShader(this.defaultShader);
+        this.cenario(); // desenha cenario
 
-        //this.forest.display();
-        //this.nest.display();
         this.displayLightnings();
         // this.house.display();
         // ---- END Primitive drawing section
