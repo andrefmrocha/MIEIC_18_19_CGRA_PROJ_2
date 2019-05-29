@@ -17,7 +17,7 @@ class MyBird extends CGFobject {
         this.isCatching = false;
         this.isCarrying = false;
         this.upwards = false;
-        this.y = 20;
+        this.y = 10;
     }
 
     display () {
@@ -60,7 +60,7 @@ class MyBird extends CGFobject {
         this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
         if (this.isCatching) {
             this.y -= this.speed + 0.1;
-            console.log('Going down');
+            console.log('Going down', this.speed);
             if (this.y <= 0) { // TODO: Value to change according to floor
                 this.y = 0;
                 this.scene.branches.forEach((element, index) => {
@@ -68,12 +68,15 @@ class MyBird extends CGFobject {
                         this.scene.branches.splice(index, 1);
                     }
                 });
+                this.isCatching = false;
                 this.upwards = true;
             }
         } else if (this.upwards) {
-            this.y += this.speed;
+            console.log('Going up', this.speed);
+            this.y += this.speed + 0.1;
             if (this.y >= 10) {
                 this.y = 10;
+                this.upwards = false;
             }
         } else {
             this.x += this.speed * Math.sin(this.ori);
