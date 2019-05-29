@@ -119,6 +119,8 @@ class MyScene extends CGFscene {
                 z: Math.floor(Math.random() * Math.floor(60)) - 30
             });
         }
+        console.log(this.bird);
+
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -198,10 +200,10 @@ class MyScene extends CGFscene {
 
         // this.appearance.apply();
 
-        this.bird.display();
         this.branches.forEach(value => {
-            //this.branch.display(value);
+            this.branch.display(value);
         });
+        this.bird.display();
         this.setActiveShader(this.terrainShader);
 
         this.terrainTex.bind(0);

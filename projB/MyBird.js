@@ -16,11 +16,13 @@ class MyBird extends CGFobject {
         this.birdHeight = 0;
         this.isCatching = false;
         this.isCarrying = false;
+        this.upwards = false;
+        this.y = 20;
     }
 
     display () {
         this.scene.pushMatrix();
-        this.scene.translate(this.x, this.birdHeight + 3, this.z);
+        this.scene.translate(this.x, this.birdHeight + this.y, this.z);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.ori, 0, 1, 0);
         this.scene.pushMatrix();
@@ -56,17 +58,26 @@ class MyBird extends CGFobject {
     update (time) {
         this.angle = Math.sin((2 * time - time / (this.speed + 1)) * 0.005 * this.scene.speedFactor * (this.speed + 1)) * 0.7 - 0.7;
         this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
-        this.x += this.speed * Math.sin(this.ori);
-        this.z += this.speed * Math.cos(this.ori);
         if (this.isCatching) {
-            this.y -= this.speed;
-            if (this.y === 0) { // TODO: Value to change according to floor
+            this.y -= this.speed + 0.1;
+            console.log('Going down');
+            if (this.y <= 0) { // TODO: Value to change according to floor
+                this.y = 0;
                 this.scene.branches.forEach((element, index) => {
                     if (Math.sqrt(Math.pow(this.x - element.x, 2) + Math.pow(this.y - element.y, 2)) < 2) {
                         this.scene.branches.splice(index, 1);
                     }
                 });
+                this.upwards = true;
             }
+        } else if (this.upwards) {
+            this.y += this.speed;
+            if (this.y >= 10) {
+                this.y = 10;
+            }
+        } else {
+            this.x += this.speed * Math.sin(this.ori);
+            this.z += this.speed * Math.cos(this.ori);
         }
     }
     increaseSpeed () {
@@ -83,6 +94,7 @@ class MyBird extends CGFobject {
     }
     reset () {
         this.x = 0;
+        this.y = 10;
         this.z = 0;
         this.speed = 0;
         this.ori = 0;
