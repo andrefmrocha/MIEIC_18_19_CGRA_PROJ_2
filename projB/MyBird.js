@@ -23,12 +23,13 @@ class MyBird extends CGFobject {
         this.isCatching = false;
         this.isCarrying = false;
         this.upwards = false;
-        this.y = 10;
+        this.y = 3;
     }
 
     display () {
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.birdHeight + this.y, this.z);
+        this.scene.scale(0.2, 0.2, 0.2);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.ori, 0, 1, 0);
         this.scene.pushMatrix();

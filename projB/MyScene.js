@@ -116,8 +116,8 @@ class MyScene extends CGFscene {
 
         for (let i = 0; i < 6; i++) {
             this.branches.push({
-                x: Math.floor(Math.random() * Math.floor(60)) - 30,
-                z: Math.floor(Math.random() * Math.floor(60)) - 30
+                x: Math.floor(Math.random() * Math.floor(30)) - 15,
+                z: Math.floor(Math.random() * Math.floor(30)) - 15
             });
         }
         console.log(this.bird);
@@ -180,7 +180,6 @@ class MyScene extends CGFscene {
 
     cenario () {
         this.pushMatrix();
-        this.scale(0.2, 0.2, 0.2);
         this.bird.display();
         this.popMatrix();
 
