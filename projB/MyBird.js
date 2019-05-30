@@ -23,12 +23,14 @@ class MyBird extends CGFobject {
         this.isCatching = false;
         this.isCarrying = false;
         this.upwards = false;
+        this.animationTime = 0;
+        this.animationY = 0;
         this.y = 3;
     }
 
     display () {
         this.scene.pushMatrix();
-        this.scene.translate(this.x, this.birdHeight + this.y, this.z);
+        this.scene.translate(this.x, this.birdHeight + this.y + this.animationY, this.z);
         this.scene.scale(0.2, 0.2, 0.2);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.ori, 0, 1, 0);
@@ -65,12 +67,14 @@ class MyBird extends CGFobject {
         this.scene.popMatrix();
     }
     update (time) {
+        this.currentTime = time;
         this.time = 0;
         this.angle = Math.sin(2 * time * 0.005 * this.scene.speedFactor * (this.speed + 1) + this.alpha) * 0.7 - 0.7;
         if (this.isCatching) {
-            this.y -= this.speed + 0.1;
-            console.log('Going down', this.speed);
-            if (this.y <= 0) { // TODO: Value to change according to floor
+            let x = this.currentTime - this.animationTime;
+            this.animationY = -Math.sin(x / (Math.PI * 120)) * 3;
+            console.log('Going down', this.animationY, x);
+            if (this.animationY <= -3) { // TODO: Value to change according to floor
                 console.log(`Birdx: ${ this.x }, BirdY: ${ this.z }`);
                 this.scene.branches.forEach((element, index) => {
                     console.log('Searching at element', element.x, '  ', element.z);
@@ -80,8 +84,14 @@ class MyBird extends CGFobject {
                     }
                 });
             }
+
+            if (this.animationY >= 0) {
+                this.animationY = 0;
+                console.log('Stopping going up!');
+                this.isCatching = false;
+            }
         } else {
-            this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
+            this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.4;
         }
         this.x += this.speed * Math.sin(this.ori);
         this.z += this.speed * Math.cos(this.ori);
@@ -90,12 +100,12 @@ class MyBird extends CGFobject {
         this.ori += v * this.scene.speedFactor;
     }
     accelerate (v) {
-        let curr = (this.time  * this.scene.speedFactor * (this.speed + 1) + this.alpha) % (2.0 * Math.PI);
+        let curr = (this.time * this.scene.speedFactor * (this.speed + 1) + this.alpha) % (2.0 * Math.PI);
         this.speed += v * this.scene.speedFactor;
         if (this.speed < 0) {
             this.speed = 0;
         }
-        let next = (this.time  * this.scene.speedFactor * (this.speed + 1)) % (2.0 * Math.PI);
+        let next = (this.time * this.scene.speedFactor * (this.speed + 1)) % (2.0 * Math.PI);
         this.alpha = curr - next;
     }
     reset () {
@@ -106,6 +116,7 @@ class MyBird extends CGFobject {
         this.ori = 0;
     }
     catch () {
+        this.animationTime = this.currentTime;
         this.isCatching = true;
     }
 }
