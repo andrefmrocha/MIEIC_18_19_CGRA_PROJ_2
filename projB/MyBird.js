@@ -33,7 +33,7 @@ class MyBird extends CGFobject {
         this.scene.red.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.birdHeight + this.y + this.animationY, this.z);
-        this.scene.scale(0.2, 0.2, 0.2);
+        this.scene.scale(0.3, 0.3, 0.3);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.ori, 0, 1, 0);
         this.scene.pushMatrix();
@@ -60,7 +60,8 @@ class MyBird extends CGFobject {
         this.feet.display();
         if (this.isCarrying) {
             this.scene.pushMatrix();
-            this.scene.translate(-0.4, -3, 0);
+            this.scene.translate(-0.7, -3.2, 0);
+            this.scene.scale(2.5, 1, 0);
             this.branch.display({ x: 0, z: 0 });
             this.scene.popMatrix();
         }
@@ -69,18 +70,18 @@ class MyBird extends CGFobject {
         this.eye.display();
         this.nose.display();
         this.scene.popMatrix();
-        this.scene.rotate(Math.PI/2,0,0,1);
-        this.scene.rotate(Math.PI/2,0,1,0);
-        this.scene.rotate(0.15,0,0,1);
+        this.scene.rotate(Math.PI / 2, 0, 0, 1);
+        this.scene.rotate(Math.PI / 2, 0, 1, 0);
+        this.scene.rotate(0.15, 0, 0, 1);
         this.feather.display();
-        this.scene.rotate(-0.15,0,0,1);
+        this.scene.rotate(-0.15, 0, 0, 1);
         this.feather.display();
-        this.scene.rotate(-0.15,0,0,1);
+        this.scene.rotate(-0.15, 0, 0, 1);
         this.feather.display();
-        this.scene.rotate(0.25,0,0,1);
-        this.scene.rotate(-0.1,0,1,0);
+        this.scene.rotate(0.25, 0, 0, 1);
+        this.scene.rotate(-0.1, 0, 1, 0);
         this.feather.display();
-        this.scene.rotate(-0.16,0,0,1);
+        this.scene.rotate(-0.16, 0, 0, 1);
         this.feather.display();
         this.scene.popMatrix();
     }
@@ -91,21 +92,28 @@ class MyBird extends CGFobject {
         if (this.isCatching) {
             let x = this.currentTime - this.animationTime;
             this.animationY = -Math.sin(x / (Math.PI * 120)) * 3;
-            console.log('Going down', this.animationY, x);
-            if (this.animationY <= -3) { // TODO: Value to change according to floor
+            if (this.animationY <= -2.7) { // TODO: Value to change according to floor
                 console.log(`Birdx: ${ this.x }, BirdY: ${ this.z }`);
-                this.scene.branches.forEach((element, index) => {
-                    console.log('Searching at element', element.x, '  ', element.z);
-                    if (Math.sqrt(Math.pow(this.x - element.x, 2) + Math.pow(this.z - element.z, 2)) < 5) {
-                        this.scene.branches.splice(index, 1);
-                        this.isCarrying = true;
+                let birdCoords = { x: this.x, z: this.z };
+                if (!this.isCarrying) {
+                    this.scene.branches.forEach((element, index) => {
+                        // console.log('Searching at element', element.x, '  ', element.z);
+                        if (this.euclideanDistance(birdCoords, element) < 5) {
+                            console.log('Found a branch!');
+                            this.scene.branches.splice(index, 1);
+                            this.isCarrying = true;
+                        }
+                    });
+                } else {
+                    if (this.euclideanDistance(birdCoords, this.scene.nestCoords) < 3) {
+                        this.scene.nest.addBranch();
+                        this.isCarrying = false;
                     }
-                });
+                }
             }
 
             if (this.animationY >= 0) {
                 this.animationY = 0;
-                console.log('Stopping going up!');
                 this.isCatching = false;
             }
         } else {
@@ -136,5 +144,8 @@ class MyBird extends CGFobject {
     catch () {
         this.animationTime = this.currentTime;
         this.isCatching = true;
+    }
+    euclideanDistance (el1, el2) {
+        return Math.sqrt(Math.pow(el1.x - el2.x, 2) + Math.pow(el1.z - el2.z, 2));
     }
 }

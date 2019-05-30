@@ -10,8 +10,8 @@ class MyLightning extends MyLSystem {
         this.iterations = 4;
         this.scale = Math.pow(0.8, this.iterations - 1);
         this.grammar = {
-            //F: new MyCylinder(this.scene, 5, 0.06, 2),
-            //X: new MyCylinder(this.scene, 5, 0.06, 2)
+            // F: new MyCylinder(this.scene, 5, 0.06, 2),
+            // X: new MyCylinder(this.scene, 5, 0.06, 2)
             F: new MyQuad(this.scene),
             X: new MyQuad(this.scene)
         };
@@ -23,8 +23,7 @@ class MyLightning extends MyLSystem {
 
     display (time) {
         this.scene.white_lightning.apply();
-        if(this.time == 0)
-          this.time = time;
+        if (this.time == 0) { this.time = time; }
         this.aux_display(time);
     }
 
@@ -42,7 +41,7 @@ class MyLightning extends MyLSystem {
 
         let i;
 
-        this.f = ((time - this.time)/1000)*this.axiom.length;
+        this.f = ((time - this.time) / 1000) * this.axiom.length;
 
         // percorre a cadeia de caracteres
         for (i = 0; i < this.axiom.length && i < this.f; ++i) {
@@ -90,12 +89,12 @@ class MyLightning extends MyLSystem {
                 var primitive = this.grammar[this.axiom[i]];
 
                 if (primitive) {
-                  this.scene.pushMatrix();
-                  this.scene.translate(0, .5, 0);
-                  this.scene.scale(.1,1,1);
-                  primitive.display();
-                  this.scene.popMatrix();
-                  this.scene.translate(0, 1, 0);
+                    this.scene.pushMatrix();
+                    this.scene.translate(0, 0.5, 0);
+                    this.scene.scale(0.1, 1, 1);
+                    primitive.display();
+                    this.scene.popMatrix();
+                    this.scene.translate(0, 1, 0);
                 }
                 break;
             }

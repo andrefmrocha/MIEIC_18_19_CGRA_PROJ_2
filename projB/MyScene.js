@@ -141,7 +141,11 @@ class MyScene extends CGFscene {
                 z: Math.floor(Math.random() * Math.floor(30)) - 15
             });
         }
-        console.log(this.bird);
+
+        this.nestCoords = {
+            x: -8,
+            z: 11
+        };
     }
     initLights () {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -182,7 +186,7 @@ class MyScene extends CGFscene {
                 this.bird.catch();
             }
         }
-        //this.displayLightnings(currTime);
+        // this.displayLightnings(currTime);
     }
 
     displayLightnings (time) {
@@ -296,7 +300,5 @@ class MyScene extends CGFscene {
         this.displayLightnings(this.time);
         // this.house.display();
         // ---- END Primitive drawing section
-
-
     }
 }

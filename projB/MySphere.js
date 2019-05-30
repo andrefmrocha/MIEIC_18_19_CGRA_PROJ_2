@@ -91,10 +91,10 @@ class MySphere extends CGFobject {
             this.indices.splice(0, faceCount);
         }
 
-        for(var i = 0; i < this.vertices.length/9;i++){
-          this.texCoords.push(0,0);
-          this.texCoords.push(0.5,0.5);
-          this.texCoords.push(0,1);
+        for (let i = 0; i < this.vertices.length / 9; i++) {
+            this.texCoords.push(0, 0);
+            this.texCoords.push(0.5, 0.5);
+            this.texCoords.push(0, 1);
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
