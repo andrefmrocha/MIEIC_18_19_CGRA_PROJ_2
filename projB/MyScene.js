@@ -141,13 +141,13 @@ class MyScene extends CGFscene {
         this.time = currTime;
         this.bird.update(this.time);
         if (this.gui.isKeyPressed('KeyW')) {
-            this.bird.increaseSpeed();
+            this.bird.accelerate(0.05);
         } else if (this.gui.isKeyPressed('KeyS')) {
-            this.bird.decreaseSpeed();
+            this.bird.accelerate(-0.05);
         } else if (this.gui.isKeyPressed('KeyD')) {
-            this.bird.rotateRight();
+            this.bird.turn(-0.1);
         } else if (this.gui.isKeyPressed('KeyA')) {
-            this.bird.rotateLeft();
+            this.bird.turn(0.1);
         } else if (this.gui.isKeyPressed('KeyR')) {
             this.bird.reset();
         } else if (this.gui.isKeyPressed('KeyL')) {

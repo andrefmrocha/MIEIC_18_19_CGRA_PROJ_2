@@ -95,20 +95,17 @@ class MyBird extends CGFobject {
             this.z += this.speed * Math.cos(this.ori);
         }
     }
-    increaseSpeed () {
-        let curr = (this.time * 0.005 * this.scene.speedFactor * (this.speed + 1) + this.alpha) % (2.0 * Math.PI);
-        this.speed += 0.05 * this.scene.speedFactor;
-        let next = (this.time * 0.005 * this.scene.speedFactor * (this.speed + 1)) % (2.0 * Math.PI);
+    turn (v) {
+        this.ori += v * this.scene.speedFactor;
+    }
+    accelerate (v) {
+        this.speed += v * this.scene.speedFactor;
+        if (this.speed < 0) {
+            this.speed = 0;
+        }
+        let curr = (this.time * v / 10 * this.scene.speedFactor * (this.speed + 1) + this.alpha) % (2.0 * Math.PI);
+        let next = (this.time * v / 10 * this.scene.speedFactor * (this.speed + 1)) % (2.0 * Math.PI);
         this.alpha = curr - next;
-    }
-    decreaseSpeed () {
-        if (this.speed - 0.05 >= 0) { this.speed -= 0.05 * this.scene.speedFactor; } else { this.speed = 0; }
-    }
-    rotateRight () {
-        this.ori -= 0.1 * this.scene.speedFactor;
-    }
-    rotateLeft () {
-        this.ori += 0.1 * this.scene.speedFactor;
     }
     reset () {
         this.x = 0;
