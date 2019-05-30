@@ -38,6 +38,7 @@ serialInclude(['../lib/CGF.js',
     'MyBirdNose.js',
     'MyNest.js',
     'MyFeather.js',
+    'MyPointingShape.js',
 
     main = function ()     {
         let app = new CGFapplication(document.body);

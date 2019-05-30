@@ -11,7 +11,7 @@ class MySphere extends CGFobject {
         this.indices = [];
         this.normals = [];
 
-        // this.texCoords = [];
+        this.texCoords = [];
 
         this.t = (1.0 + Math.sqrt(5.0)) / 2.0;
 
@@ -89,6 +89,12 @@ class MySphere extends CGFobject {
             }
 
             this.indices.splice(0, faceCount);
+        }
+
+        for(var i = 0; i < this.vertices.length/9;i++){
+          this.texCoords.push(0,0);
+          this.texCoords.push(0.5,0.5);
+          this.texCoords.push(0,1);
         }
 
         this.primitiveType = this.scene.gl.TRIANGLES;
