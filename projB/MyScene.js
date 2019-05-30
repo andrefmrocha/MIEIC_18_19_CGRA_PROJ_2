@@ -68,6 +68,25 @@ class MyScene extends CGFscene {
         this.materialWood.setShininess(10.0);
         this.materialWood.loadTexture('images/wood.jpg');
 
+        this.redFeather = new CGFappearance(this);
+        this.redFeather.setAmbient(0.9, 0.8, 0.8, 1);
+        this.redFeather.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.redFeather.setSpecular(0.1, 0.1, 0.1, 1);
+        this.redFeather.setShininess(10.0);
+        this.redFeather.loadTexture('images/red_feathers.jpg');
+
+        this.red = new CGFappearance(this);
+        this.red.setAmbient(0.9, 0.1, 0.1, 1);
+        this.red.setDiffuse(0.9, 0.1, 0.1, 1);
+        this.red.setSpecular(0.0, 0.0, 0.0, 1);
+        this.red.setShininess(120);
+
+        this.black = new CGFappearance(this);
+        this.black.setAmbient(0, 0, 0, 1);
+        this.black.setDiffuse(0, 0, 0, 1);
+        this.black.setSpecular(0.0, 0.0, 0.0, 1);
+        this.black.setShininess(120);
+
         this.appearance = new CGFappearance(this);
         this.appearance.setAmbient(0.3, 0.3, 0.3, 1);
         this.appearance.setDiffuse(0.7, 0.7, 0.7, 1);
@@ -109,6 +128,8 @@ class MyScene extends CGFscene {
         this.nest = new MyNest(this);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
         this.branch = new MyTreeBranch(this);
+
+        this.feather = new MyFeather(this);
 
         this.lightnings = [];
 
@@ -220,7 +241,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-9, -3, 11);
+        this.translate(-9, -1.5, 11);
         this.scale(1.2, 1.2, 1.2);
         this.rotate(-Math.PI / 2, 1, 0, 0);
         this.nest.display();
@@ -275,5 +296,7 @@ class MyScene extends CGFscene {
         this.displayLightnings(this.time);
         // this.house.display();
         // ---- END Primitive drawing section
+
+
     }
 }

@@ -8,6 +8,7 @@ class MyBird extends CGFobject {
         this.eye = new MyBirdEye(scene);
         this.nose = new MyBirdNose(scene);
         this.branch = new MyTreeBranch(scene);
+        this.feather = new MyFeather(scene);
 
         this.angle = 0;
 
@@ -29,6 +30,7 @@ class MyBird extends CGFobject {
     }
 
     display () {
+        this.scene.red.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.birdHeight + this.y + this.animationY, this.z);
         this.scene.scale(0.2, 0.2, 0.2);
@@ -51,6 +53,8 @@ class MyBird extends CGFobject {
         this.scene.scale(-1, 1, 1);
         this.wing.display(this.angle);
         this.scene.popMatrix();
+        this.scene.black.apply();
+        this.scene.pushMatrix();
         this.feet.display();
         this.scene.translate(2, 0, 0);
         this.feet.display();
@@ -64,6 +68,20 @@ class MyBird extends CGFobject {
         this.scene.translate(-1.5, 0, 0);
         this.eye.display();
         this.nose.display();
+        this.scene.popMatrix();
+        this.scene.rotate(Math.PI/2,0,0,1);
+        this.scene.rotate(Math.PI/2,0,1,0);
+        this.scene.rotate(0.15,0,0,1);
+        this.feather.display();
+        this.scene.rotate(-0.15,0,0,1);
+        this.feather.display();
+        this.scene.rotate(-0.15,0,0,1);
+        this.feather.display();
+        this.scene.rotate(0.25,0,0,1);
+        this.scene.rotate(-0.1,0,1,0);
+        this.feather.display();
+        this.scene.rotate(-0.16,0,0,1);
+        this.feather.display();
         this.scene.popMatrix();
     }
     update (time) {

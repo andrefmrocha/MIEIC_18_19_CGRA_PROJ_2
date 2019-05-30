@@ -12,8 +12,8 @@ class MyLightning extends MyLSystem {
         this.grammar = {
             //F: new MyCylinder(this.scene, 5, 0.06, 2),
             //X: new MyCylinder(this.scene, 5, 0.06, 2)
-            F: new MyQuad(this.scene,undefined,0.2,1.5),
-            X: new MyQuad(this.scene,undefined,0.2,1.5)
+            F: new MyQuad(this.scene),
+            X: new MyQuad(this.scene)
         };
         this.iterate();
         this.it = this.generator();
@@ -90,8 +90,12 @@ class MyLightning extends MyLSystem {
                 var primitive = this.grammar[this.axiom[i]];
 
                 if (primitive) {
-                    primitive.display();
-                    this.scene.translate(0, 1, 0);
+                  this.scene.pushMatrix();
+                  this.scene.translate(0, .5, 0);
+                  this.scene.scale(.1,1,1);
+                  primitive.display();
+                  this.scene.popMatrix();
+                  this.scene.translate(0, 1, 0);
                 }
                 break;
             }
