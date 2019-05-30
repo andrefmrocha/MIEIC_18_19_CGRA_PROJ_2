@@ -161,15 +161,16 @@ class MyScene extends CGFscene {
                 this.bird.catch();
             }
         }
+        //this.displayLightnings(currTime);
     }
 
-    displayLightnings () {
+    displayLightnings (time) {
         for (let i = 0; i < this.lightnings.length / 4.0; i = i + 4) {
             this.pushMatrix();
             this.rotate(this.lightnings[i + 1], 0, 1, 0);
             this.rotate(Math.PI, 1, 0, 0);
             this.translate(this.lightnings[i + 2], -17, this.lightnings[i + 3]);
-            this.lightnings[i].display();
+            this.lightnings[i].display(time);
             this.popMatrix();
             if (this.lightnings[i].f > this.lightnings[i].axiom.length + 100) {
                 this.lightnings.splice(i, 4);
@@ -271,7 +272,7 @@ class MyScene extends CGFscene {
         this.setActiveShader(this.defaultShader);
         this.cenario(); // desenha cenario
 
-        this.displayLightnings();
+        this.displayLightnings(this.time);
         // this.house.display();
         // ---- END Primitive drawing section
     }

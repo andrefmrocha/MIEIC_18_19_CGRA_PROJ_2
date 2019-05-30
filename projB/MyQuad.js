@@ -6,8 +6,18 @@
  */
 /* eslint-disable no-undef */
 class MyQuad extends CGFobject {
-    constructor (scene, coords) {
+    constructor (scene, coords , x , y) {
         super(scene);
+        if(x == undefined)
+          this.x = 1;
+        else {
+          this.x = x;
+        }
+        if(y == undefined)
+          this.y = 1;
+        else {
+          this.y = y;
+        }
         this.initBuffers();
         // eslint-disable-next-line eqeqeq
         if (coords != undefined) { this.updateTexCoords(coords); }
@@ -15,14 +25,14 @@ class MyQuad extends CGFobject {
 
     initBuffers () {
         this.vertices = [
-            -0.5, -0.5, 0, // 0
-            0.5, -0.5, 0, // 1
-            -0.5, 0.5, 0, // 2
-            0.5, 0.5, 0, // 3
-            -0.5, -0.5, 0, // 0
-            0.5, -0.5, 0, // 1
-            -0.5, 0.5, 0, // 2
-            0.5, 0.5, 0 // 3
+            -0.5*this.x, -0.5*this.y, 0, // 0
+            0.5*this.x, -0.5*this.y, 0, // 1
+            -0.5*this.x, 0.5*this.y, 0, // 2
+            0.5*this.x, 0.5*this.y, 0, // 3
+            -0.5*this.x, -0.5*this.y, 0, // 0
+            0.5*this.x, -0.5*this.y, 0, // 1
+            -0.5*this.x, 0.5*this.y, 0, // 2
+            0.5*this.x, 0.5*this.y, 0 // 3
         ];
 
         // Counter-clockwise reference of vertices
