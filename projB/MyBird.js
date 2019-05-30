@@ -66,12 +66,10 @@ class MyBird extends CGFobject {
     update (time) {
         this.time = 0;
         this.angle = Math.sin(2 * time * 0.005 * this.scene.speedFactor * (this.speed + 1) + this.alpha) * 0.7 - 0.7;
-        this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
         if (this.isCatching) {
             this.y -= this.speed + 0.1;
             console.log('Going down', this.speed);
             if (this.y <= 0) { // TODO: Value to change according to floor
-                this.y = 0;
                 console.log(`Birdx: ${ this.x }, BirdY: ${ this.z }`);
                 this.scene.branches.forEach((element, index) => {
                     console.log('Searching at element', element.x, '  ', element.z);
@@ -80,20 +78,12 @@ class MyBird extends CGFobject {
                         this.isCarrying = true;
                     }
                 });
-                this.isCatching = false;
-                this.upwards = true;
-            }
-        } else if (this.upwards) {
-            console.log('Going up', this.speed);
-            this.y += this.speed + 0.1;
-            if (this.y >= 10) {
-                this.y = 10;
-                this.upwards = false;
             }
         } else {
-            this.x += this.speed * Math.sin(this.ori);
-            this.z += this.speed * Math.cos(this.ori);
+            this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.7;
         }
+        this.x += this.speed * Math.sin(this.ori);
+        this.z += this.speed * Math.cos(this.ori);
     }
     turn (v) {
         this.ori += v * this.scene.speedFactor;
