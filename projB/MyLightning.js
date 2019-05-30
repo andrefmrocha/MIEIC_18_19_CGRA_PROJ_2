@@ -10,17 +10,22 @@ class MyLightning extends MyLSystem {
         this.iterations = 4;
         this.scale = Math.pow(0.8, this.iterations - 1);
         this.grammar = {
-            F: new MyCylinder(this.scene, 5, 0.06, 2),
-            X: new MyCylinder(this.scene, 5, 0.06, 2)
+            //F: new MyCylinder(this.scene, 5, 0.06, 2),
+            //X: new MyCylinder(this.scene, 5, 0.06, 2)
+            F: new MyQuad(this.scene,undefined,0.2,1.5),
+            X: new MyQuad(this.scene,undefined,0.2,1.5)
         };
         this.iterate();
         this.it = this.generator();
         this.f = 0;
+        this.time = 0;
     }
 
-    display () {
+    display (time) {
         this.scene.white_lightning.apply();
-        this.aux_display();
+        if(this.time == 0)
+          this.time = time;
+        this.aux_display(time);
     }
 
     * generator () {
@@ -31,13 +36,13 @@ class MyLightning extends MyLSystem {
         }
     }
 
-    aux_display () {
+    aux_display (time) {
         this.scene.pushMatrix();
         this.scene.scale(this.scale, this.scale, this.scale);
 
         let i;
 
-        this.f = this.it.next().value;
+        this.f = ((time - this.time)/1000)*this.axiom.length;
 
         // percorre a cadeia de caracteres
         for (i = 0; i < this.axiom.length && i < this.f; ++i) {
