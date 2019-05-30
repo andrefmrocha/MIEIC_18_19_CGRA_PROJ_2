@@ -110,6 +110,8 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
         this.branch = new MyTreeBranch(this);
 
+        this.feather = new MyFeather(this);
+
         this.lightnings = [];
 
         this.setUpdatePeriod(1000 / 30);
@@ -276,5 +278,9 @@ class MyScene extends CGFscene {
         this.displayLightnings(this.time);
         // this.house.display();
         // ---- END Primitive drawing section
+
+
+        this.feather.display();
+
     }
 }
