@@ -186,7 +186,30 @@ class MyScene extends CGFscene {
             if (!this.bird.isCatching) {
                 this.bird.catch();
             }
+        } else if (this.gui.isKeyPressed('KeyO')) {
+            this.openGarage(delta);
+        } else if (this.gui.isKeyPressed('KeyC')) {
+            this.closeGarage(delta);
         }
+
+        if (this.house.doorOpening === true) {
+            this.house.update(delta);
+        } else if (this.house.doorClosing === true) {
+            this.house.update(delta);
+        }
+    }
+
+    openGarage (delta) {
+        console.log('Open the door!', delta);
+        if (this.house.doorOpening === false) {
+            // this.house.garageY = -1;
+            this.house.openDoor();
+        }
+    }
+
+    closeGarage (delta) {
+        console.log('Close the door!', delta);
+        if (this.house.doorClosing === false) { this.house.closeDoor(); }
     }
 
     displayLightnings (time) {
