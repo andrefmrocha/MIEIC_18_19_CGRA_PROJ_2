@@ -109,7 +109,7 @@ class MyBird extends CGFobject {
                     });
                 } else if (!this.stored) {
                     if (this.euclideanDistance(birdCoords, this.scene.nestCoords) < 3) {
-                        this.scene.nest.addBranch();
+                        this.scene.nest.addBranch(this.isCarrying);
                         this.stored = true;
                         this.isCarrying = null;
                     }

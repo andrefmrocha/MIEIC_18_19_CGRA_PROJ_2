@@ -3,7 +3,7 @@ class MyNest extends CGFobject {
     constructor (scene) {
         super(scene);
         this.branch = new MyCylinder(scene, 5, 0.1, 1.6);
-        this.branchs = 0;
+        this.branchs = [];
     }
 
     display () {
@@ -24,18 +24,20 @@ class MyNest extends CGFobject {
         }
         this.scene.translate(0, 0, 0.12);
         this.scene.rotate(Math.sqrt(3), 0, 0, 1);
-        for (ang = 0; ang < Math.PI / (2 + z * 0.5) * this.branchs; ang += Math.PI / (2 + z * 0.5)) {
+        let i = 0;
+        for (ang = 0; ang < Math.PI / (2 + z * 0.5) * this.branchs.length; ang += Math.PI / (2 + z * 0.5)) {
             this.scene.pushMatrix();
             this.scene.rotate(ang + Math.sqrt(3) * 0.1, 0, 0, 1);
             this.scene.translate(0.13 * z, -0.8, 0);
-            this.branch.display();
+            this.branchs[i].display();
             this.scene.popMatrix();
+            i++;
         }
         this.scene.popMatrix();
     }
 
-    addBranch () {
-        this.branchs++;
-        console.log(`Number of branches ${ this.branchs }`);
+    addBranch (branch) {
+        this.branchs.push(branch);
+        console.log(`Number of branches ${ this.branchs.length }`);
     }
 }
