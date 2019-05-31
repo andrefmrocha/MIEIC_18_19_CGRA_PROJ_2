@@ -127,7 +127,7 @@ class MyScene extends CGFscene {
         this.forest = new MyForest(this, 5, 3);
         this.nest = new MyNest(this);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
-        this.branch = new MyTreeBranch(this);
+        // this.branch = new MyTreeBranch(this);2
 
         this.feather = new MyFeather(this);
 
@@ -136,10 +136,11 @@ class MyScene extends CGFscene {
         this.setUpdatePeriod(1000 / 30);
 
         for (let i = 0; i < 6; i++) {
-            this.branches.push({
+            this.branches.push(new MyTreeBranch(this, {
                 x: Math.floor(Math.random() * Math.floor(30)) - 15,
-                z: Math.floor(Math.random() * Math.floor(30)) - 15
-            });
+                z: Math.floor(Math.random() * Math.floor(30)) - 15,
+                height: Math.random() * 0.6 + 1
+            }));
         }
 
         this.nestCoords = {
@@ -186,7 +187,6 @@ class MyScene extends CGFscene {
                 this.bird.catch();
             }
         }
-        // this.displayLightnings(currTime);
     }
 
     displayLightnings (time) {
@@ -210,7 +210,7 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.branches.forEach(value => {
-            this.branch.display(value);
+            value.display();
         });
         this.setActiveShader(this.terrainShader);
 

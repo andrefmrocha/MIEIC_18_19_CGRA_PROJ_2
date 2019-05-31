@@ -31,9 +31,18 @@ class MyBird extends CGFobject {
     }
 
     display () {
-        this.scene.red.apply();
         this.scene.pushMatrix();
         this.scene.translate(this.x, this.birdHeight + this.y + this.animationY, this.z);
+        if (this.isCarrying != null) {
+            console.log('Carrying branch');
+            this.scene.pushMatrix();
+            this.scene.rotate(this.ori, 0, 1, 0);
+            this.scene.translate(1, 0.2, 1.6);
+            this.isCarrying.display();
+            this.scene.popMatrix();
+        }
+        this.scene.red.apply();
+
         this.scene.scale(0.3, 0.3, 0.3);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.ori, 0, 1, 0);
@@ -59,12 +68,6 @@ class MyBird extends CGFobject {
         this.feet.display();
         this.scene.translate(2, 0, 0);
         this.feet.display();
-        if (this.isCarrying != null) {
-            this.scene.pushMatrix();
-            this.scene.translate(-1, 1.7, 5.3);
-            this.branch.display({ x: 0, z: 0 });
-            this.scene.popMatrix();
-        }
         this.eye.display();
         this.scene.translate(-1.5, 0, 0);
         this.eye.display();
@@ -97,9 +100,9 @@ class MyBird extends CGFobject {
                 let birdCoords = { x: this.x, z: this.z };
                 if (this.isCarrying == null) {
                     this.scene.branches.forEach((element, index) => {
-                        // console.log('Searching at element', element.x, '  ', element.z);
-                        if (this.euclideanDistance(birdCoords, element) < 5) {
+                        if (this.euclideanDistance(birdCoords, element.coords) < 5) {
                             console.log('Found a branch!');
+                            element.setNullCoords();
                             this.isCarrying = element;
                             this.scene.branches.splice(index, 1);
                         }
@@ -108,6 +111,7 @@ class MyBird extends CGFobject {
                     if (this.euclideanDistance(birdCoords, this.scene.nestCoords) < 3) {
                         this.scene.nest.addBranch();
                         this.stored = true;
+                        this.isCarrying = null;
                     }
                 }
             }
@@ -115,7 +119,6 @@ class MyBird extends CGFobject {
             if (this.animationY >= 0) {
                 if (this.stored) {
                     this.stored = false;
-                    this.isCarrying = null;
                 }
                 this.animationY = 0;
                 this.isCatching = null;
