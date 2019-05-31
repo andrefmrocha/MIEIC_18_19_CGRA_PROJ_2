@@ -2,7 +2,7 @@
 class MyTreeBranch extends CGFobject {
     constructor (scene) {
         super(scene);
-        this.cylinder = new MyCylinder(scene, 3, 0.1, 1);
+        this.cylinder = new MyCylinder(scene, 5, 0.1, 1.6);
     }
 
     display (coords) {

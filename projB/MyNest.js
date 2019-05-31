@@ -36,5 +36,6 @@ class MyNest extends CGFobject {
 
     addBranch () {
         this.branchs++;
+        console.log(`Number of branches ${ this.branchs }`);
     }
 }

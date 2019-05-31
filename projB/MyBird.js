@@ -22,8 +22,9 @@ class MyBird extends CGFobject {
         this.x = 0;
         this.birdHeight = 0;
         this.isCatching = false;
-        this.isCarrying = false;
+        this.isCarrying = null;
         this.upwards = false;
+        this.stored = false;
         this.animationTime = 0;
         this.animationY = 0;
         this.y = 3;
@@ -58,10 +59,9 @@ class MyBird extends CGFobject {
         this.feet.display();
         this.scene.translate(2, 0, 0);
         this.feet.display();
-        if (this.isCarrying) {
+        if (this.isCarrying != null) {
             this.scene.pushMatrix();
-            this.scene.translate(-0.7, -3.2, 0);
-            this.scene.scale(2.5, 1, 0);
+            this.scene.translate(-1, 1.7, 5.3);
             this.branch.display({ x: 0, z: 0 });
             this.scene.popMatrix();
         }
@@ -95,26 +95,30 @@ class MyBird extends CGFobject {
             if (this.animationY <= -2.7) { // TODO: Value to change according to floor
                 console.log(`Birdx: ${ this.x }, BirdY: ${ this.z }`);
                 let birdCoords = { x: this.x, z: this.z };
-                if (!this.isCarrying) {
+                if (this.isCarrying == null) {
                     this.scene.branches.forEach((element, index) => {
                         // console.log('Searching at element', element.x, '  ', element.z);
                         if (this.euclideanDistance(birdCoords, element) < 5) {
                             console.log('Found a branch!');
+                            this.isCarrying = element;
                             this.scene.branches.splice(index, 1);
-                            this.isCarrying = true;
                         }
                     });
-                } else {
+                } else if (!this.stored) {
                     if (this.euclideanDistance(birdCoords, this.scene.nestCoords) < 3) {
                         this.scene.nest.addBranch();
-                        this.isCarrying = false;
+                        this.stored = true;
                     }
                 }
             }
 
             if (this.animationY >= 0) {
+                if (this.stored) {
+                    this.stored = false;
+                    this.isCarrying = null;
+                }
                 this.animationY = 0;
-                this.isCatching = false;
+                this.isCatching = null;
             }
         } else {
             this.birdHeight = Math.sin(time / (Math.PI * 2) / 30) * 0.4;
@@ -146,6 +150,7 @@ class MyBird extends CGFobject {
         this.isCatching = true;
     }
     euclideanDistance (el1, el2) {
+        console.log(Math.sqrt(Math.pow(el1.x - el2.x, 2) + Math.pow(el1.z - el2.z, 2)));
         return Math.sqrt(Math.pow(el1.x - el2.x, 2) + Math.pow(el1.z - el2.z, 2));
     }
 }
