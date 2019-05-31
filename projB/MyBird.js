@@ -28,6 +28,7 @@ class MyBird extends CGFobject {
         this.animationTime = 0;
         this.animationY = 0;
         this.y = 3;
+        this.fallingfeathers = [];
     }
 
     display () {
@@ -42,7 +43,6 @@ class MyBird extends CGFobject {
             this.scene.popMatrix();
         }
         this.scene.red.apply();
-
         this.scene.scale(0.3, 0.3, 0.3);
         this.scene.scale(this.scene.scaleFactor, this.scene.scaleFactor, this.scene.scaleFactor);
         this.scene.rotate(this.ori, 0, 1, 0);
@@ -87,6 +87,13 @@ class MyBird extends CGFobject {
         this.scene.rotate(-0.16, 0, 0, 1);
         this.feather.display();
         this.scene.popMatrix();
+        this.fallingfeathers.forEach(element => {
+            this.scene.pushMatrix();
+            this.scene.translate(element.x, element.y, element.z);
+            this.scene.scale(0.3, 0.3, 0.3);
+            this.feather.display();
+            this.scene.popMatrix();
+        });
     }
     update (time) {
         this.currentTime = time;
@@ -128,6 +135,7 @@ class MyBird extends CGFobject {
         }
         this.x += this.speed * Math.sin(this.ori);
         this.z += this.speed * Math.cos(this.ori);
+        this.feathersFalling(time);
     }
     turn (v) {
         this.ori += v * this.scene.speedFactor;
@@ -155,5 +163,20 @@ class MyBird extends CGFobject {
     euclideanDistance (el1, el2) {
         console.log(Math.sqrt(Math.pow(el1.x - el2.x, 2) + Math.pow(el1.z - el2.z, 2)));
         return Math.sqrt(Math.pow(el1.x - el2.x, 2) + Math.pow(el1.z - el2.z, 2));
+    }
+    feathersFalling (time) {
+        this.fallingfeathers.forEach((element, index) => {
+            element.y -= 0.1;
+            if (element.y <= -0.5) {
+                this.fallingfeathers.splice(index, 1);
+            }
+        });
+        if (time % 30 === 0) {
+            this.fallingfeathers.push({
+                x: this.x,
+                y: 3,
+                z: this.z
+            });
+        }
     }
 }
