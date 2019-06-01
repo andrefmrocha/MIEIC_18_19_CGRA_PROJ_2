@@ -30,7 +30,7 @@ class MyScene extends CGFscene {
 
         // Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.plane = new Plane(this, 32);
+        this.terrain = new MyTerrain(this);
 
         this.brick = new CGFappearance(this);
         this.brick.setAmbient(0.9, 0.9, 0.9, 1);
@@ -245,11 +245,7 @@ class MyScene extends CGFscene {
         this.terrainAlt.bind(2);
 
         // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
-        this.rotate(-0.5 * Math.PI, 1, 0, 0);
-        this.scale(60, 60, 1);
-        this.plane.display();
-        this.popMatrix();
+        this.terrain.display();
         this.setDefaultAppearance();
 
         this.setActiveShader(this.defaultShader);
@@ -297,28 +293,6 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // this.appearance.apply();
-        this.setActiveShader(this.terrainShader);
-
-        this.terrainTex.bind(0);
-        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_S, this.gl.REPEAT);
-        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_WRAP_T, this.gl.REPEAT);
-        this.terrainMap.bind(1);
-        this.terrainAlt.bind(2);
-
-        // this.appearance.apply();
-
-        // this.terrainMap.apply();
-
-        // Apply default appearance
-
-        // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
-        this.rotate(-0.5 * Math.PI, 1, 0, 0);
-        this.scale(60, 60, 1);
-        this.plane.display();
-        this.popMatrix();
-        this.setDefaultAppearance();
-        this.setActiveShader(this.defaultShader);
         this.cenario(); // desenha cenario
 
         this.displayLightnings(this.time);
