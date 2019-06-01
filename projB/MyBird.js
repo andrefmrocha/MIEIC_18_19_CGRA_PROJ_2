@@ -29,6 +29,7 @@ class MyBird extends CGFobject {
         this.animationY = 0;
         this.y = 3;
         this.fallingfeathers = [];
+        this.featherPut = true;
     }
 
     display () {
@@ -90,7 +91,10 @@ class MyBird extends CGFobject {
         this.fallingfeathers.forEach(element => {
             this.scene.pushMatrix();
             this.scene.translate(element.x, element.y, element.z);
-            this.scene.scale(0.3, 0.3, 0.3);
+            this.scene.rotate(Math.PI/2 , 1,0,0);
+            this.scene.rotate(-Math.PI/2 , 0,0,1);
+            this.scene.rotate(element.ang , 0,0,1);
+            this.scene.scale(0.2, 0.2, 0.2);
             this.feather.display();
             this.scene.popMatrix();
         });
@@ -170,13 +174,26 @@ class MyBird extends CGFobject {
             if (element.y <= -0.5) {
                 this.fallingfeathers.splice(index, 1);
             }
+            element.z = element.z_t + 0.2*Math.sin(element.z_f*(element.f_time-time));
+            element.x = element.x_t + 0.2*Math.sin(0.008*(element.f_time-time));
         });
-        if (time % 30 === 0) {
+        var m = time % 2000;
+        if (m < 100) {
+          if(this.featherPut == false){
+            this.featherPut = true;
             this.fallingfeathers.push({
                 x: this.x,
                 y: 3,
-                z: this.z
+                z: this.z,
+                ang : Math.random()*0.5-0.25 - this.ori,
+                f_time : time,
+                z_t : this.z,
+                x_t : this.z,
+                z_f : Math.random() * 0.006 + 0.002
             });
+          }
+        }else{
+          this.featherPut = false;
         }
     }
 }
