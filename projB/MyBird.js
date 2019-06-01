@@ -188,7 +188,7 @@ class MyBird extends CGFobject {
                 ang : Math.random()*0.5-0.25 - this.ori,
                 f_time : time,
                 z_t : this.z,
-                x_t : this.z,
+                x_t : this.x,
                 z_f : Math.random() * 0.006 + 0.002
             });
           }
