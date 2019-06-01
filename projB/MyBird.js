@@ -104,8 +104,8 @@ class MyBird extends CGFobject {
         this.angle = Math.sin(2 * time * 0.005 * this.scene.speedFactor * (this.speed + 1) + this.alpha) * 0.7 - 0.7;
         if (this.isCatching) {
             let x = this.currentTime - this.animationTime;
-            this.animationY = -Math.sin(x / (Math.PI * 120)) * 3;
-            if (this.animationY <= -2.7) { // TODO: Value to change according to floor
+            this.animationY = -Math.sin(x / (Math.PI * 120)) * 2;
+            if (this.animationY <= -1.8) {
                 console.log(`Birdx: ${ this.x }, BirdY: ${ this.z }`);
                 let birdCoords = { x: this.x, z: this.z };
                 if (this.isCarrying == null) {

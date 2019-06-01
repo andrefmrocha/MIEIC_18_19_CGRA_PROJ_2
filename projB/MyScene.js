@@ -137,7 +137,7 @@ class MyScene extends CGFscene {
 
         for (let i = 0; i < 6; i++) {
             this.branches.push(new MyTreeBranch(this, {
-                x: Math.floor(Math.random() * Math.floor(20) + 5),
+                x: Math.floor(Math.random() * Math.floor(14) + 7),
                 z: Math.floor(Math.random() * Math.floor(20) - 10),
                 height: 1
             }));
@@ -164,6 +164,7 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
     update (currTime) {
+        let delta = currTime - this.time;
         this.time = currTime;
         this.bird.update(this.time);
         if (this.gui.isKeyPressed('KeyW')) {
