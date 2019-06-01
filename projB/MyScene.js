@@ -137,9 +137,9 @@ class MyScene extends CGFscene {
 
         for (let i = 0; i < 6; i++) {
             this.branches.push(new MyTreeBranch(this, {
-                x: Math.floor(Math.random() * Math.floor(30)) - 15,
-                z: Math.floor(Math.random() * Math.floor(30)) - 15,
-                height: Math.random() * 0.6 + 1
+                x: Math.floor(Math.random() * Math.floor(20) + 5),
+                z: Math.floor(Math.random() * Math.floor(20) - 10),
+                height: 1
             }));
         }
 
