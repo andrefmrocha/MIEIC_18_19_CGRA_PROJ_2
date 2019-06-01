@@ -2,7 +2,7 @@
 class MyTerrain extends CGFobject {
     constructor (scene) {
         super(scene);
-        this.plane = new Plane(scene, 32);        
+        this.plane = new Plane(scene, 32);
     }
     display () {
         this.scene.pushMatrix();
