@@ -267,6 +267,14 @@ class MyScene extends CGFscene {
         }
 
         this.waterShader.setUniformsValues({ timeFactor: currTime / 100 % 1000 });
+
+        this.pushMatrix();
+        this.scale(0.3,0.3,0.3);
+        for (let i = 0; i < this.small_ducks.length; i++) {
+          this.small_ducks[i].display(currTime);
+        }
+        this.popMatrix();
+
     }
 
     openGarage (delta) {
@@ -354,6 +362,7 @@ class MyScene extends CGFscene {
           this.small_ducks[i].display();
         }
         this.popMatrix();
+
         this.pushMatrix();
         this.scale(-1,1,1);
         this.skybox.display();
