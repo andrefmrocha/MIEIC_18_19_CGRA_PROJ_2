@@ -81,6 +81,18 @@ class MyScene extends CGFscene {
         this.red.setSpecular(0.0, 0.0, 0.0, 1);
         this.red.setShininess(120);
 
+        this.orange = new CGFappearance(this);
+        this.orange.setAmbient(0.9, 0.5, 0.1, 1);
+        this.orange.setDiffuse(0.9, 0.5, 0.1, 1);
+        this.orange.setSpecular(0.0, 0.0, 0.0, 1);
+        this.orange.setShininess(120);
+
+        this.yellow = new CGFappearance(this);
+        this.yellow.setAmbient(0.9, 0.9, 0.1, 1);
+        this.yellow.setDiffuse(0.9, 0.9, 0.1, 1);
+        this.yellow.setSpecular(0.0, 0.0, 0.0, 1);
+        this.yellow.setShininess(120);
+
         this.black = new CGFappearance(this);
         this.black.setAmbient(0, 0, 0, 1);
         this.black.setDiffuse(0, 0, 0, 1);
@@ -132,6 +144,7 @@ class MyScene extends CGFscene {
         this.nest = new MyNest(this);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
         this.pool = new MyPool(this,3,6);
+        this.duck = new MyRubberDuck(this);
         // this.branch = new MyTreeBranch(this);2
 
         this.feather = new MyFeather(this);
@@ -282,6 +295,8 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.translate(12,0.5,8);
         this.pool.display();
+        this.scale(0.4,0.4,0.4);
+        this.duck.display();
         this.popMatrix();
     }
 

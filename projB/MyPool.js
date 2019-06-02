@@ -48,9 +48,10 @@ class MyPool extends CGFobject {
         this.scene.scale(this.base + this.baseOffset, 1.3, 0.5);
         this.cube.display();
         this.scene.popMatrix();
-        this.scene.popMatrix();
         this.scene.scale(this.base, 1, this.height);
         this.scene.translate(0, -1.7, 0);
         this.cube.display();
+        this.scene.popMatrix();
+        //this.scene.popMatrix();
     }
 }
