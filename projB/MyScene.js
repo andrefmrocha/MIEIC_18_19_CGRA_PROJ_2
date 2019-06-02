@@ -187,7 +187,7 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
         this.pool = new MyPool(this, 3, 6);
         this.duck = new MyRubberDuck(this);
-        this.skybox = new MyCubeMapDay(this,156);
+        this.skybox = new MyCubeMapDay(this, 156);
         // this.branch = new MyTreeBranch(this);2
 
         this.small_ducks = [];
@@ -215,8 +215,9 @@ class MyScene extends CGFscene {
         };
     }
     initLights () {
-        this.lights[0].setPosition(15, 2, 5, 1);
+        this.lights[0].setPosition(15, 50, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setAmbient(0.7, 0.7, 0.7, 1);
         this.lights[0].enable();
         this.lights[0].update();
     }
