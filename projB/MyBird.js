@@ -155,7 +155,7 @@ class MyBird extends CGFobject {
     }
     reset () {
         this.x = 0;
-        this.y = 10;
+        this.y = 3;
         this.z = 0;
         this.speed = 0;
         this.ori = 0;

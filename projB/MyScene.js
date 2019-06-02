@@ -103,14 +103,18 @@ class MyScene extends CGFscene {
         this.terrainMap = new CGFtexture(this, 'images/heightmap2.jpg');
         this.terrainAlt = new CGFtexture(this, 'images/altimetry.png');
 
+        this.waterTex = new CGFtexture(this,'images/water.jpg');
+
         this.texture = this.terrainTex;
 
         this.appearance.setTexture(this.terrainTex);
         this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
         this.terrainShader = new CGFshader(this.gl, 'shaders/terrain.vert', 'shaders/terrain.frag');
+        this.waterShader = new CGFshader(this.gl, 'shaders/water.vert', 'shaders/water.frag');
 
         this.terrainShader.setUniformsValues({ terrainTex: 0, terrainMap: 1, terrainAlt: 2 });
+        this.waterShader.setUniformsValues({ timeFactor : 0, waterTex: 1 });
 
         // Objects connected to MyInterface
         this.tiles = new CGFappearance(this);
@@ -127,6 +131,7 @@ class MyScene extends CGFscene {
         this.forest = new MyForest(this, 5, 3);
         this.nest = new MyNest(this);
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
+        this.pool = new MyPool(this,3,6);
         // this.branch = new MyTreeBranch(this);2
 
         this.feather = new MyFeather(this);
@@ -198,6 +203,8 @@ class MyScene extends CGFscene {
         } else if (this.house.doorClosing === true) {
             this.house.update(delta);
         }
+
+        this.waterShader.setUniformsValues({ timeFactor: currTime / 100 % 1000 });
     }
 
     openGarage (delta) {
@@ -244,6 +251,7 @@ class MyScene extends CGFscene {
         this.terrainMap.bind(1);
         this.terrainAlt.bind(2);
 
+
         // ---- BEGIN Primitive drawing section
         this.terrain.display();
         this.setDefaultAppearance();
@@ -269,6 +277,11 @@ class MyScene extends CGFscene {
         this.scale(1.2, 1.2, 1.2);
         this.rotate(-Math.PI / 2, 1, 0, 0);
         this.nest.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(12,0.5,8);
+        this.pool.display();
         this.popMatrix();
     }
 
