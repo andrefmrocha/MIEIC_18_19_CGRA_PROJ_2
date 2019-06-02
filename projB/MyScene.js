@@ -111,6 +111,48 @@ class MyScene extends CGFscene {
         this.white_lightning.setSpecular(1, 1, 1, 1);
         this.white_lightning.setShininess(100.0);
 
+        this.materialHillsBk = new CGFappearance(this);
+        this.materialHillsBk.setAmbient(0.9, 0.9, 0.9, 1);
+        this.materialHillsBk.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialHillsBk.setSpecular(0.1, 0.1, 0.1, 1);
+        this.materialHillsBk.setShininess(10.0);
+        this.materialHillsBk.loadTexture('images/skybox/hills_bk.jpg');
+
+        this.materialHillsFt = new CGFappearance(this);
+        this.materialHillsFt.setAmbient(0.9, 0.9, 0.9, 1);
+        this.materialHillsFt.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialHillsFt.setSpecular(0.1, 0.1, 0.1, 1);
+        this.materialHillsFt.setShininess(10.0);
+        this.materialHillsFt.loadTexture('images/skybox/hills_ft.jpg');
+
+        this.materialHillsLf = new CGFappearance(this);
+        this.materialHillsLf.setAmbient(0.9, 0.9, 0.9, 1);
+        this.materialHillsLf.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialHillsLf.setSpecular(0.1, 0.1, 0.1, 1);
+        this.materialHillsLf.setShininess(10.0);
+        this.materialHillsLf.loadTexture('images/skybox/hills_lf.jpg');
+
+        this.materialHillsRf = new CGFappearance(this);
+        this.materialHillsRf.setAmbient(0.9, 0.9, 0.9, 1);
+        this.materialHillsRf.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialHillsRf.setSpecular(0.1, 0.1, 0.1, 1);
+        this.materialHillsRf.setShininess(10.0);
+        this.materialHillsRf.loadTexture('images/skybox/hills_rt.jpg');
+
+        this.materialHillsUp = new CGFappearance(this);
+        this.materialHillsUp.setAmbient(0.9, 0.9, 0.9, 1);
+        this.materialHillsUp.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialHillsUp.setSpecular(0.1, 0.1, 0.1, 1);
+        this.materialHillsUp.setShininess(10.0);
+        this.materialHillsUp.loadTexture('images/skybox/hills_up.jpg');
+
+        this.materialHillsDn = new CGFappearance(this);
+        this.materialHillsDn.setAmbient(0.9, 0.9, 0.9, 1);
+        this.materialHillsDn.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.materialHillsDn.setSpecular(0.1, 0.1, 0.1, 1);
+        this.materialHillsDn.setShininess(10.0);
+        this.materialHillsDn.loadTexture('images/skybox/hills_dn.jpg');
+
         this.terrainTex = new CGFtexture(this, 'images/terrain2.jpg');
         this.terrainMap = new CGFtexture(this, 'images/heightmap2.jpg');
         this.terrainAlt = new CGFtexture(this, 'images/altimetry.png');
@@ -145,7 +187,14 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this, this.brick, this.door, this.tiles);
         this.pool = new MyPool(this,3,6);
         this.duck = new MyRubberDuck(this);
+        this.skybox = new MyCubeMapDay(this,60);
         // this.branch = new MyTreeBranch(this);2
+
+        this.small_ducks = [];
+        for (let i = 0; i < 1; i++) {
+          this.small_ducks.push(new MyRubberDuck(this,this.white_lightning));
+        }
+
 
         this.feather = new MyFeather(this);
 
@@ -298,6 +347,18 @@ class MyScene extends CGFscene {
         this.scale(0.4,0.4,0.4);
         this.duck.display();
         this.popMatrix();
+
+        this.pushMatrix();
+        this.scale(0.3,0.3,0.3);
+        for (let i = 0; i < this.small_ducks.length; i++) {
+          this.small_ducks[i].display();
+        }
+        this.popMatrix();
+        this.pushMatrix();
+        this.scale(-1,1,1);
+        this.skybox.display();
+        this.popMatrix();
+
     }
 
     display () {
