@@ -191,8 +191,8 @@ class MyScene extends CGFscene {
         // this.branch = new MyTreeBranch(this);2
 
         this.small_ducks = [];
-        for (let i = 0; i < 1; i++) {
-            this.small_ducks.push(new MyRubberDuck(this, this.white_lightning));
+        for (let i = 0; i < 6; i++) {
+            this.small_ducks.push(new MyRubberDuck(this, this.white_lightning , (Math.random() * 15)-6 , Math.random()*(- 15) , Math.random()* Math.PI));
         }
 
         this.feather = new MyFeather(this);
@@ -267,13 +267,6 @@ class MyScene extends CGFscene {
         }
 
         this.waterShader.setUniformsValues({ timeFactor: currTime / 100 % 1000 });
-
-        this.pushMatrix();
-        this.scale(0.3,0.3,0.3);
-        for (let i = 0; i < this.small_ducks.length; i++) {
-          this.small_ducks[i].display(this.time);
-        }
-        this.popMatrix();
 
     }
 
@@ -360,6 +353,14 @@ class MyScene extends CGFscene {
         this.scale(-1, 1, 1);
         this.skybox.display();
         this.popMatrix();
+
+        this.pushMatrix();
+        this.scale(0.3,0.3,0.3);
+        for (let i = 0; i < this.small_ducks.length; i++) {
+          this.small_ducks[i].display(this.time);
+        }
+        this.popMatrix();
+
     }
 
     display () {
