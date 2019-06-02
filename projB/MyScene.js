@@ -271,7 +271,7 @@ class MyScene extends CGFscene {
         this.pushMatrix();
         this.scale(0.3,0.3,0.3);
         for (let i = 0; i < this.small_ducks.length; i++) {
-          this.small_ducks[i].display(currTime);
+          this.small_ducks[i].display(this.time);
         }
         this.popMatrix();
 
@@ -355,12 +355,6 @@ class MyScene extends CGFscene {
         this.duck.display();
         this.popMatrix();
 
-        this.pushMatrix();
-        this.scale(0.3, 0.3, 0.3);
-        for (let i = 0; i < this.small_ducks.length; i++) {
-            this.small_ducks[i].display();
-        }
-        this.popMatrix();
 
         this.pushMatrix();
         this.scale(-1, 1, 1);

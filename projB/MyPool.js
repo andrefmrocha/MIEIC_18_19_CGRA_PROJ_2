@@ -7,7 +7,7 @@ class MyPool extends CGFobject {
         this.quad = new MyQuad(scene);
         this.cube = new MyUnitCubeQuad(scene);
         this.offset = 0.1;
-        this.baseOffset = 0.75;
+        this.baseOffset = 0.7;
     }
 
     display () {
@@ -49,7 +49,7 @@ class MyPool extends CGFobject {
         this.cube.display();
         this.scene.popMatrix();
         this.scene.scale(this.base, 1, this.height);
-        this.scene.translate(0, -1.7, 0);
+        this.scene.translate(0, -0.1, 0);
         this.cube.display();
         this.scene.popMatrix();
         //this.scene.popMatrix();
